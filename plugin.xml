@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="net.yoik.cordova.plugins.screenorientation"
+    version="0.0.1">
+
+    <name>YoikScreenOrientation</name>
+    <description>Yoik Screen Orientation Plugin</description>
+    <license>MIT</license>
+
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+
+    <js-module src="www/screenorientation.js" name="screenorientation">
+        <clobbers target="cordova.plugins.screenorientation" />
+    </js-module>
+
+	<platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="YoikScreenOrientation">
+                <param name="ios-package" value="YoikScreenOrientation" />
+            </feature>
+        </config-file>
+        <header-file src="src/ios/YoikScreenOrientation.h" />
+        <source-file src="src/ios/YoikScreenOrientation.m" />
+
+    </platform>
+
+    <platform name="android">
+
+        <source-file src="src/android/net/yoik/cordova/plugins/screenorientation/YoikScreenOrientation.java" target-dir="src/net/yoik/cordova/plugins/screenorientation/" />
+
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="YoikScreenOrientation">
+                <param name="android-package" value="net.yoik.cordova.plugins.screenorientation.YoikScreenOrientation" />
+            </feature>
+        </config-file>
+
+    </platform>
+
+</plugin>
