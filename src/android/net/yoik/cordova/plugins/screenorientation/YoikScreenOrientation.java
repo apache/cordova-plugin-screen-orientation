@@ -24,8 +24,8 @@ SOFTWARE.
 package net.yoik.cordova.plugins.screenorientation;
 
 import org.apache.cordova.CallbackContext;
-
 import org.apache.cordova.CordovaPlugin;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -57,9 +57,6 @@ public class YoikScreenOrientation extends CordovaPlugin {
     private static final String REVERSE_PORTRAIT = "reversePortrait";
     private static final String FULL_SENSOR = "fullSensor";
 
-    // an index for the toast message
-    private static final int TOAST_MESSAGE_INDEX = 0;
-
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
 
@@ -86,8 +83,6 @@ public class YoikScreenOrientation extends CordovaPlugin {
             Log.d(TAG, "Requested ScreenOrientation: " + orientation);
 
             Activity activity = cordova.getActivity();
-
-            Log.d(TAG, "ROUTING SET");
 
             if (orientation.equals(UNSPECIFIED)) {
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
@@ -123,7 +118,6 @@ public class YoikScreenOrientation extends CordovaPlugin {
             callbackContext.error("ScreenOrientation not recognised");
             return false;
         }
-
     }
 
 }

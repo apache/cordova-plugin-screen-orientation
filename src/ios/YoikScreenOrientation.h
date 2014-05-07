@@ -27,7 +27,6 @@ SOFTWARE.
 
 @interface YoikScreenOrientation : CDVPlugin
 
-
 - (void)screenOrientation:(CDVInvokedUrlCommand *)command;
 
 @end

@@ -24,20 +24,20 @@ SOFTWARE.
 var argscheck = require('cordova/argscheck'),
     exec = require('cordova/exec'),
     Constants = {
-      Orientation: {
+        Orientation: {
             UNSPECIFIED: "unspecified",
-		    LANDSCAPE: "landscape",
-		    PORTRAIT: "portrait",
-		    USER: "user",
-		    BEHIND: "behind",
-		    SENSOR: "sensor",
-		    NOSENSOR: "nosensor",
-		    SENSOR_LANDSCAPE: "sensorLandscape",
-		    SENSOR_PORTRAIT: "sensorPortrait",
-		    REVERSE_LANDSCAPE: "reverseLandscape",
-		    REVERSE_PORTRAIT: "reversePortrait",
-		    FULL_SENSOR: "fullSensor"
-      }
+            LANDSCAPE: "landscape",
+            PORTRAIT: "portrait",
+            USER: "user",
+            BEHIND: "behind",
+            SENSOR: "sensor",
+            NOSENSOR: "nosensor",
+            SENSOR_LANDSCAPE: "sensorLandscape",
+            SENSOR_PORTRAIT: "sensorPortrait",
+            REVERSE_LANDSCAPE: "reverseLandscape",
+            REVERSE_PORTRAIT: "reversePortrait",
+            FULL_SENSOR: "fullSensor"
+        }
     },
     currOrientation = Constants.Orientation.UNSPECIFIED;
 
@@ -62,32 +62,32 @@ orientationExports.setOrientation = function(successCallback, errorCallback, ori
 
 // ios orientation callback/hook
 window.shouldRotateToOrientation = function(orientation) {
-	var o = Constants.Orientation;
-	switch (currOrientation) {
-		case o.PORTRAIT:
-		case o.SENSOR_PORTRAIT:
-			if (orientation === 0) return true;
-		break;
-		case o.LANDSCAPE:
-		case o.SENSOR_LANDSCAPE:
-			if (orientation === -90) return true;
-		break;
-		case o.REVERSE_LANDSCAPE:
-			if (orientation === 90) return true;
-		break;
-		case o.REVERSE_PORTRAIT:
-			if (orientation === 180) return true;
-		break;
-		case o.FULL_SENSOR:
-			return true;
-		break;
+    var o = Constants.Orientation;
+    switch (currOrientation) {
+        case o.PORTRAIT:
+        case o.SENSOR_PORTRAIT:
+            if (orientation === 0) return true;
+        break;
+        case o.LANDSCAPE:
+        case o.SENSOR_LANDSCAPE:
+            if (orientation === -90) return true;
+        break;
+        case o.REVERSE_LANDSCAPE:
+            if (orientation === 90) return true;
+        break;
+        case o.REVERSE_PORTRAIT:
+            if (orientation === 180) return true;
+        break;
+        case o.FULL_SENSOR:
+            return true;
+        break;
         case o.SENSOR:
-		case o.UNSPECIFIED:
-			if (orientation === -90 || orientation === 90 || orientation === 0) return true;
-		break;
-	}
+        case o.UNSPECIFIED:
+            if (orientation === -90 || orientation === 90 || orientation === 0) return true;
+        break;
+    }
 
-	return false;
+    return false;
 }
 
 module.exports = orientationExports;
