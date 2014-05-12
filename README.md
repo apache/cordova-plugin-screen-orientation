@@ -5,7 +5,7 @@ Cordova plugin to set/lock the screen orientation in a common way for both iOS a
 
 Install
 =
-cordova plugin install https://github.com/yoik/cordova-yoik-screenorientation
+cordova plugin add https://github.com/yoik/cordova-yoik-screenorientation
   
 Android
 ====
