@@ -23,45 +23,26 @@ SOFTWARE.
  */
 var argscheck = require('cordova/argscheck'),
     exec = require('cordova/exec'),
-
-    Constants = {
-        Orientation: {
-            PORTRAIT_PRIMARY: 'portrait-primary',
-            // The orientation is in the primary portrait mode.
-            PORTRAIT_SECONDARY: 'portrait-secondary',
-            // The orientation is in the secondary portrait mode.
-            LANDSCAPE_PRIMARY: 'landscape-primary',
-            // The orientation is in the primary landscape mode.
-            LANDSCAPE_SECONDARY: 'landscape-secondary',
-            // The orientation is in the secondary landscape mode.
-            PORAIT: 'portrait',
-            // The orientation is either portrait-primary or portrait-secondary.
-            LANDSCAPE: 'landscape',
-            // The orientation is either landscape-primary or landscape-secondary.
-            UNLOCKED: 'unlocked'
-        }
-    },
-    currOrientation = Constants.Orientation.UNLOCKED;
+    Orientations = [
+        'portrait-primary',
+        // The orientation is in the primary portrait mode.
+        'portrait-secondary',
+        // The orientation is in the secondary portrait mode.
+        'landscape-primary',
+        // The orientation is in the primary landscape mode.
+        'landscape-secondary',
+        // The orientation is in the secondary landscape mode.
+        'portrait',
+        // The orientation is either portrait-primary or portrait-secondary.
+        'landscape'
+    ],
+    currOrientation = 'unlocked';
 
 var orientationExports = {};
 
-// Tack on the orientation Constants to the base plugin.
-for (var key in Constants) {
-    orientationExports[key] = Constants[key];
-}
-
-function setOrientation(successCallback, errorCallback, orientation) {
-    currOrientation = orientation ? orientation : Constants.Orientation.UNSPECIFIED;
-
-    exec(successCallback, errorCallback, "YoikScreenOrientation", "screenOrientation", ['set', currOrientation]);
-}
-
-function fireEvent(obj) {
-    var event = document.createEvent('HTMLEvents');
-
-    event.initEvent('orientationchange', true, true);
-    event.eventName = 'orientationchange';
-    // screen.dispatchEvent(event);
+function setOrientation(orientation) {
+    currOrientation = orientation ? orientation : 'unlocked';
+    exec(null, null, "YoikScreenOrientation", "screenOrientation", ['set', currOrientation]);
 }
 
 function addScreenOrientationApi(obj) {
@@ -69,21 +50,16 @@ function addScreenOrientationApi(obj) {
         return;
     }
 
-    var successCallback = function() {
-            fireEvent(obj);
-        },
-        errorCallback = function(){};
-
     obj.lockOrientation = function(orientation) {
-        // if (Object.keys(Constants.Orientation).indexOf(orientation) == -1) {
-        //     return;
-        // }
-
-        setOrientation(successCallback, errorCallback, orientation);
+        if (Orientations.indexOf(orientation) == -1) {
+            console.log('INVALID ORIENTATION', orientation);
+            return;
+        }
+        setOrientation(orientation);
     };
 
     obj.unlockOrientation = function() {
-        setOrientation(successCallback, errorCallback, Constants.Orientation.UNLOCKED);
+        setOrientation('unlocked');
     };
 }
 
@@ -91,29 +67,28 @@ addScreenOrientationApi(screen);
 
 // ios orientation callback/hook
 window.shouldRotateToOrientation = function(orientation) {
-    var o = Constants.Orientation;
     switch (currOrientation) {
-        case o.PORTRAIT:
-        case o.PORTRAIT_PRIMARY:
+        case 'portrait':
+        case 'portrait-primary':
             if (orientation === 0) return true;
         break;
-        case o.LANDSCAPE:
-        case o.LANDSCAPE_PRIMARY:
+        case 'landscape':
+        case 'landscape-primary':
             if (orientation === -90) return true;
         break;
-        case o.LANDSCAPE_SECONDARY:
-        case o.LANDSCAPE:
+        case 'landscape':
+        case 'landscape-secondary':
             if (orientation === 90) return true;
         break;
-        case o.PORTRAIT:
-        case o.PORTRAIT_SECONDARY:
+        case 'portrait':
+        case 'portrait-secondary':
             if (orientation === 180) return true;
         break;
-        case o.UNLOCKED:
+        default:
             if (orientation === -90 || orientation === 90 || orientation === 0) return true;
         break;
     }
     return false;
 };
 
-module.exports = orientationExports;
+module.exports = {};
