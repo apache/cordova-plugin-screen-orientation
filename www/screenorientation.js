@@ -23,71 +23,72 @@ SOFTWARE.
  */
 var argscheck = require('cordova/argscheck'),
     exec = require('cordova/exec'),
-    Constants = {
-        Orientation: {
-            UNSPECIFIED: "unspecified",
-            LANDSCAPE: "landscape",
-            PORTRAIT: "portrait",
-            USER: "user",
-            BEHIND: "behind",
-            SENSOR: "sensor",
-            NOSENSOR: "nosensor",
-            SENSOR_LANDSCAPE: "sensorLandscape",
-            SENSOR_PORTRAIT: "sensorPortrait",
-            REVERSE_LANDSCAPE: "reverseLandscape",
-            REVERSE_PORTRAIT: "reversePortrait",
-            FULL_SENSOR: "fullSensor"
-        }
-    },
-    currOrientation = Constants.Orientation.UNSPECIFIED;
+    Orientations = [
+        'portrait-primary',
+        // The orientation is in the primary portrait mode.
+        'portrait-secondary',
+        // The orientation is in the secondary portrait mode.
+        'landscape-primary',
+        // The orientation is in the primary landscape mode.
+        'landscape-secondary',
+        // The orientation is in the secondary landscape mode.
+        'portrait',
+        // The orientation is either portrait-primary or portrait-secondary.
+        'landscape'
+    ],
+    currOrientation = 'unlocked';
 
 var orientationExports = {};
 
-// Tack on the orientation Constants to the base plugin.
-for (var key in Constants) {
-    orientationExports[key] = Constants[key];
+function setOrientation(orientation) {
+    currOrientation = orientation ? orientation : 'unlocked';
+    exec(null, null, "YoikScreenOrientation", "screenOrientation", ['set', currOrientation]);
 }
 
-orientationExports.setOrientation = function(successCallback, errorCallback, orientation) {
-    if (typeof successCallback == "string") {
-        orientation = successCallback;
-        successCallback = function(){};
-        errorCallback = function(){};
+function addScreenOrientationApi(obj) {
+    if (obj.unlockOrientation || obj.lockOrientation) {
+        return;
     }
 
-    currOrientation = orientation ? orientation : Constants.Orientation.UNSPECIFIED;
+    obj.lockOrientation = function(orientation) {
+        if (Orientations.indexOf(orientation) == -1) {
+            console.log('INVALID ORIENTATION', orientation);
+            return;
+        }
+        setOrientation(orientation);
+    };
 
-    exec(successCallback, errorCallback, "YoikScreenOrientation", "screenOrientation", ['set', currOrientation]);
-};
+    obj.unlockOrientation = function() {
+        setOrientation('unlocked');
+    };
+}
+
+addScreenOrientationApi(screen);
 
 // ios orientation callback/hook
 window.shouldRotateToOrientation = function(orientation) {
-    var o = Constants.Orientation;
     switch (currOrientation) {
-        case o.PORTRAIT:
-        case o.SENSOR_PORTRAIT:
+        case 'portrait':
+        case 'portrait-primary':
             if (orientation === 0) return true;
         break;
-        case o.LANDSCAPE:
-        case o.SENSOR_LANDSCAPE:
+        case 'landscape':
+        case 'landscape-primary':
             if (orientation === -90) return true;
         break;
-        case o.REVERSE_LANDSCAPE:
+        case 'landscape':
+        case 'landscape-secondary':
             if (orientation === 90) return true;
         break;
-        case o.REVERSE_PORTRAIT:
+        case 'portrait':
+        case 'portrait-secondary':
             if (orientation === 180) return true;
         break;
-        case o.FULL_SENSOR:
-            return true;
-        break;
-        case o.SENSOR:
-        case o.UNSPECIFIED:
+        default:
             if (orientation === -90 || orientation === 90 || orientation === 0) return true;
         break;
     }
-
     return false;
-}
+};
 
-module.exports = orientationExports;
+module.exports = {};

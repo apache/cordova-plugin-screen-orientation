@@ -41,21 +41,13 @@ public class YoikScreenOrientation extends CordovaPlugin {
      * Screen Orientation Constants
      */
 
-    // Refer to
-    // http://developer.android.com/reference/android/R.attr.html#screenOrientation
-
-    private static final String UNSPECIFIED = "unspecified";
-    private static final String LANDSCAPE = "landscape";
+    private static final String UNLOCKED = "unlocked";
+    private static final String PORTRAIT_PRIMARY = "portrait-primary";
+    private static final String PORTRAIT_SECONDARY = "portrait-secondary";
+    private static final String LANDSCAPE_PRIMARY = "landscape-primary";
+    private static final String LANDSCAPE_SECONDARY = "landscape-secondary";
     private static final String PORTRAIT = "portrait";
-    private static final String USER = "user";
-    private static final String BEHIND = "behind";
-    private static final String SENSOR = "sensor";
-    private static final String NOSENSOR = "nosensor";
-    private static final String SENSOR_LANDSCAPE = "sensorLandscape";
-    private static final String SENSOR_PORTRAIT = "sensorPortrait";
-    private static final String REVERSE_LANDSCAPE = "reverseLandscape";
-    private static final String REVERSE_PORTRAIT = "reversePortrait";
-    private static final String FULL_SENSOR = "fullSensor";
+    private static final String LANDSCAPE = "landscape";
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
@@ -84,40 +76,28 @@ public class YoikScreenOrientation extends CordovaPlugin {
 
             Activity activity = cordova.getActivity();
 
-            if (orientation.equals(UNSPECIFIED)) {
+            if (orientation.equals(UNLOCKED)) {
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-            } else if (orientation.equals(LANDSCAPE)) {
+            } else if (orientation.equals(LANDSCAPE_PRIMARY)) {
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-            } else if (orientation.equals(PORTRAIT)) {
+            } else if (orientation.equals(PORTRAIT_PRIMARY)) {
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            } else if (orientation.equals(USER)) {
-                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
-            } else if (orientation.equals(BEHIND)) {
-                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_BEHIND);
-            } else if (orientation.equals(SENSOR)) {
-                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-            } else if (orientation.equals(NOSENSOR)) {
-                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
-            } else if (orientation.equals(SENSOR_LANDSCAPE)) {
+            } else if (orientation.equals(LANDSCAPE)) {
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-            } else if (orientation.equals(SENSOR_PORTRAIT)) {
+            } else if (orientation.equals(PORTRAIT)) {
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
-            } else if (orientation.equals(REVERSE_LANDSCAPE)) {
+            } else if (orientation.equals(LANDSCAPE_SECONDARY)) {
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
-            } else if (orientation.equals(REVERSE_PORTRAIT)) {
+            } else if (orientation.equals(PORTRAIT_SECONDARY)) {
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
-            } else if (orientation.equals(FULL_SENSOR)) {
-                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
             }
 
             callbackContext.success();
             return true;
 
         } else {
-
             callbackContext.error("ScreenOrientation not recognised");
             return false;
         }
     }
-
 }
