@@ -25,6 +25,12 @@ The orientation is in the primary landscape mode.
 __landscape-secondary__
 The orientation is in the secondary landscape mode.
 
+__portrait__
+The orientation is either portrait-primary or portrait-secondary (sensor).
+
+__landscape__
+The orientation is either landscape-primary or landscape-secondary (sensor).
+
 ##Usage
 
     screen.lockOrientation('landscape');

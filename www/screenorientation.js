@@ -35,6 +35,7 @@ var argscheck = require('cordova/argscheck'),
         'portrait',
         // The orientation is either portrait-primary or portrait-secondary.
         'landscape'
+        // The orientation is either landscape-primary or landscape-secondary.
     ],
     currOrientation = 'unlocked';
 
