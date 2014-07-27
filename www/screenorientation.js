@@ -23,6 +23,7 @@ SOFTWARE.
  */
 var argscheck = require('cordova/argscheck'),
     exec = require('cordova/exec'),
+    screenOrientation = {},
     Orientations = [
         'portrait-primary',
         // The orientation is in the primary portrait mode.
@@ -36,15 +37,14 @@ var argscheck = require('cordova/argscheck'),
         // The orientation is either portrait-primary or portrait-secondary.
         'landscape'
         // The orientation is either landscape-primary or landscape-secondary.
-    ],
-    currOrientation = 'unlocked';
+    ];
 
-var orientationExports = {};
+screenOrientation.Orientations = Orientations;
+screenOrientation.currOrientation = 'unlocked';
 
-function setOrientation(orientation) {
-    currOrientation = orientation ? orientation : 'unlocked';
-    exec(null, null, "YoikScreenOrientation", "screenOrientation", ['set', currOrientation]);
-}
+screenOrientation.setOrientation = function(orientation) {
+    exec(null, null, "YoikScreenOrientation", "screenOrientation", ['set', orientation]);
+};
 
 function addScreenOrientationApi(obj) {
     if (obj.unlockOrientation || obj.lockOrientation) {
@@ -56,40 +56,42 @@ function addScreenOrientationApi(obj) {
             console.log('INVALID ORIENTATION', orientation);
             return;
         }
-        setOrientation(orientation);
+        screenOrientation.currOrientation = orientation;
+        screenOrientation.setOrientation(orientation);
     };
 
     obj.unlockOrientation = function() {
-        setOrientation('unlocked');
+        screenOrientation.currOrientation = 'unlocked';
+        screenOrientation.setOrientation('unlocked');
     };
 }
 
 addScreenOrientationApi(screen);
+orientationChange();
 
-// ios orientation callback/hook
-window.shouldRotateToOrientation = function(orientation) {
-    switch (currOrientation) {
-        case 'portrait':
-        case 'portrait-primary':
-            if (orientation === 0) return true;
-        break;
-        case 'landscape':
-        case 'landscape-primary':
-            if (orientation === -90) return true;
-        break;
-        case 'landscape':
-        case 'landscape-secondary':
-            if (orientation === 90) return true;
-        break;
-        case 'portrait':
-        case 'portrait-secondary':
-            if (orientation === 180) return true;
-        break;
+function orientationChange() {
+    var orientation;
+
+    switch (window.orientation) {
+        case 0:
+             orientation = 'portrait-primary';
+             break;
+        case 90:
+            orientation = 'landscape-secondary';
+            break;
+        case 180:
+            orientation = 'portrait-secondary';
+            break;
+        case -90:
+            orientation = 'landscape-primary';
+            break;
         default:
-            if (orientation === -90 || orientation === 90 || orientation === 0) return true;
-        break;
+            orientation = 'unknown';
     }
-    return false;
-};
 
-module.exports = {};
+    screen.orientation = orientation;
+}
+
+window.addEventListener("orientationchange", orientationChange, true);
+
+module.exports = screenOrientation;

@@ -1,7 +1,17 @@
 #cordova-yoik-screenorientation
 
-Cordova plugin to set/lock the screen orientation in a common way for both iOS and Android.  From version 1.0.0 the
-interface is based on the [Screen Orientation API](http://www.w3.org/TR/screen-orientation/).
+Cordova plugin to set/lock the screen orientation in a common way for iOS, Android and Blackberry 10.  From version 1.0.0 the interface is based on the [Screen Orientation API](http://www.w3.org/TR/screen-orientation/).
+
+The plugin adds the following to the screen object:
+
+__lockOrientation(ORIENTATION_STRING)__
+lock the device orientation
+
+__unlockOrientation()__
+unlock the orientation
+
+__orientation__
+current orientation (ORIENTATION_STRING)
 
 ##Install
 
@@ -11,7 +21,7 @@ cordova plugin add net.yoik.cordova.plugins.screenorientation
 https://github.com/yoik/cordova-yoik-screenorientation
 
 
-##Orientations
+##Supported Orientations
 
 __portrait-primary__
 The orientation is in the primary portrait mode.
@@ -33,30 +43,28 @@ The orientation is either landscape-primary or landscape-secondary (sensor).
 
 ##Usage
 
+    // set to either landscape
     screen.lockOrientation('landscape');
 
+    // allow user rotate
     screen.unlockOrientation();
+
+    // access current orientation
+    console.log('Orientation is ' + screen.orientation);
 
 ##Events
 
 Both android and iOS will fire the orientationchange event on the window object.
 For this version of the plugin use the window object if you require notification.
 
-i.e.
 
-    function init() {
-        window.addEventListener("orientationchange", orientationChange, true);
-    }
-
-    function orientationChange(e) {
-        var orientation="portrait";
-        if(window.orientation == -90 || window.orientation == 90) orientation = "landscape";
-        document.getElementById("status").innerHTML+=orientation+"<br>";
-    }
-
-For this plugin to follow the API events should be fired on the screen object.
-iOS does not currently support events on the _screen_ object so custom event
+For this plugin to follow the full API events should be fired on the screen object.
+iOS and BB10 do not currently support events on the _screen_ object so custom event
 handling will need to be added (Suggestions welcome!).
+
+##Android Notes
+
+The __screen.orientation__ property will not update when the phone is [rotated 180 degrees](http://www.quirksmode.org/dom/events/orientationchange.html).
 
 ##iOS Notes
 
@@ -72,5 +80,9 @@ Issue [#1](https://github.com/yoik/cordova-yoik-screenorientation/issues/1) @dok
 
 >It seems to be related to having width=device-width, height=device-height in the meta viewport (which is part of the boilerplate phonegap/cordova app). It can be solved by updating the viewport with width=device-height, height=device-width or simply removing width and height altogether.
 
+
+##BB10 Notes
+
+Wraps the com.blackberry.app plugin functions, auto installed as a dependancy.
 
 Pull requests welcome.
