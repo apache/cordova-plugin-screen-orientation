@@ -1,4 +1,4 @@
-#cordova-yoik-screenorientation
+#Cordova Screen Orientation Plugin
 
 Cordova plugin to set/lock the screen orientation in a common way for iOS, Android and Blackberry 10.  From version 1.0.0 the interface is based on the [Screen Orientation API](http://www.w3.org/TR/screen-orientation/).
 
