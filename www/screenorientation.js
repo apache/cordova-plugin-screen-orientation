@@ -21,9 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
-var argscheck = require('cordova/argscheck'),
-    exec = require('cordova/exec'),
-    screenOrientation = {},
+var screenOrientation = {},
     Orientations = [
         'portrait-primary',
         // The orientation is in the primary portrait mode.
@@ -43,7 +41,8 @@ screenOrientation.Orientations = Orientations;
 screenOrientation.currOrientation = 'unlocked';
 
 screenOrientation.setOrientation = function(orientation) {
-    exec(null, null, "YoikScreenOrientation", "screenOrientation", ['set', orientation]);
+    //platform specific files override this function
+    console.log('setOrientation not supported on device');
 };
 
 function addScreenOrientationApi(obj) {
