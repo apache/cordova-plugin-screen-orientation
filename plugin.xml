@@ -2,9 +2,9 @@
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="net.yoik.cordova.plugins.screenorientation"
-    version="1.1.1">
+    version="1.1.2">
 
-    <name>Yoik Screen Orientation</name>
+    <name>Screen Orientation</name>
     <description>Adds Screen Orientation API lock and unlock functions to the global screen object in android, iOS and BB10.</description>
     <license>MIT</license>
 
@@ -37,6 +37,9 @@
                 <param name="android-package" value="net.yoik.cordova.plugins.screenorientation.YoikScreenOrientation" />
             </feature>
         </config-file>
+        <js-module src="www/screenorientation.android.js" name="screenorientation.android">
+            <merges target="cordova.plugins.screenorientation" />
+        </js-module>
     </platform>
 
     <platform name="blackberry10">
