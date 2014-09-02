@@ -12,24 +12,26 @@ window.shouldRotateToOrientation = function(orientation) {
     var currOrientation = cordova.plugins.screenorientation.currOrientation;
     switch (currOrientation) {
         case 'portrait':
+			if (orientation === 0 || orientation === 180) return true;
+			break;
         case 'portrait-primary':
-            if (orientation === 0) return true;
-        break;
-        case 'landscape':
+			if (orientation === 0) return true;
+			break;
+		case 'portrait-secondary':
+			if (orientation === 180) return true;
+			break;
+        case 'landscape':                                  
+			if (orientation === -90 || orientation === 90) return true;											   
+			break;
         case 'landscape-primary':
-            if (orientation === -90) return true;
-        break;
-        case 'landscape':
+			if (orientation === -90) return true;
+			break;
         case 'landscape-secondary':
-            if (orientation === 90) return true;
-        break;
-        case 'portrait':
-        case 'portrait-secondary':
-            if (orientation === 180) return true;
-        break;
-        default:
-            if (orientation === -90 || orientation === 90 || orientation === 0) return true;
-        break;
+			if (orientation === 90) return true;
+			break;
+        default: 
+			if (orientation === -90 || orientation === 90 || orientation === 0) return true;
+			break;
     }
     return false;
 };
