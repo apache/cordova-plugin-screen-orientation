@@ -9,29 +9,17 @@ module.exports = screenOrientation;
 
 // ios orientation callback/hook
 window.shouldRotateToOrientation = function(orientation) {
-    var currOrientation = cordova.plugins.screenorientation.currOrientation;
-    switch (currOrientation) {
-        case 'portrait':
-			if (orientation === 0 || orientation === 180) return true;
-			break;
-        case 'portrait-primary':
-			if (orientation === 0) return true;
-			break;
-		case 'portrait-secondary':
-			if (orientation === 180) return true;
-			break;
-        case 'landscape':                                  
-			if (orientation === -90 || orientation === 90) return true;											   
-			break;
-        case 'landscape-primary':
-			if (orientation === -90) return true;
-			break;
-        case 'landscape-secondary':
-			if (orientation === 90) return true;
-			break;
-        default: 
-			if (orientation === -90 || orientation === 90 || orientation === 0) return true;
-			break;
-    }
-    return false;
+    var currOrientation = cordova.plugins.screenorientation.currOrientation,
+        orientationMap  = {
+            'portrait': [0,180],
+            'portrait-primary': [0],
+            'portrait-secondary': [180],
+            'landscape': [-90,90],
+            'landscape-primary': [-90],
+            'landscape-secondary': [90],
+            'default': [-90,90,0]
+        },
+        map = orientationMap[currOrientation] || orientationMap['default'];
+
+    return map.indexOf(orientation) >= 0;
 };
