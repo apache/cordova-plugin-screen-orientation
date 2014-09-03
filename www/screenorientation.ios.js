@@ -1,35 +1,37 @@
 var exec = require('cordova/exec'),
-    screenOrientation = {};
+    screenOrientation = {},
+    iosOrientation = 'unlocked',
+    orientationMap  = {
+        'portrait': [0,180],
+        'portrait-primary': [0],
+        'portrait-secondary': [180],
+        'landscape': [-90,90],
+        'landscape-primary': [-90],
+        'landscape-secondary': [90],
+        'default': [-90,90,0]
+    };
 
 screenOrientation.setOrientation = function(orientation) {
-    exec(null, null, "YoikScreenOrientation", "screenOrientation", ['set', orientation]);
+    iosOrientation = orientation;
+
+    var success = function(res) {
+        if (orientation === 'unlocked' && res.device) {
+            iosOrientation = res.device;
+
+            setTimeout(function() {
+                iosOrientation = 'unlocked';
+            },0);
+        }
+    };
+
+    exec(success, null, "YoikScreenOrientation", "screenOrientation", ['set', orientation]);
 };
 
 module.exports = screenOrientation;
 
 // ios orientation callback/hook
 window.shouldRotateToOrientation = function(orientation) {
-    var currOrientation = cordova.plugins.screenorientation.currOrientation;
-    switch (currOrientation) {
-        case 'portrait':
-        case 'portrait-primary':
-            if (orientation === 0) return true;
-        break;
-        case 'landscape':
-        case 'landscape-primary':
-            if (orientation === -90) return true;
-        break;
-        case 'landscape':
-        case 'landscape-secondary':
-            if (orientation === 90) return true;
-        break;
-        case 'portrait':
-        case 'portrait-secondary':
-            if (orientation === 180) return true;
-        break;
-        default:
-            if (orientation === -90 || orientation === 90 || orientation === 0) return true;
-        break;
-    }
-    return false;
+    var currOrientation = iosOrientation,
+        map = orientationMap[currOrientation] || orientationMap['default'];
+    return map.indexOf(orientation) >= 0;
 };
