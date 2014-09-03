@@ -31,7 +31,6 @@ module.exports = screenOrientation;
 
 // ios orientation callback/hook
 window.shouldRotateToOrientation = function(orientation) {
-    var currOrientation = iosOrientation,
-        map = orientationMap[currOrientation] || orientationMap['default'];
+    var map = orientationMap[iosOrientation] || orientationMap['default'];
     return map.indexOf(orientation) >= 0;
 };
