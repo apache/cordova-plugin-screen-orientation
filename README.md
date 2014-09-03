@@ -80,6 +80,9 @@ Issue [#1](https://github.com/yoik/cordova-yoik-screenorientation/issues/1) @dok
 
 >It seems to be related to having width=device-width, height=device-height in the meta viewport (which is part of the boilerplate phonegap/cordova app). It can be solved by updating the viewport with width=device-height, height=device-width or simply removing width and height altogether.
 
+####iOS8
+
+Versions prior to 1.2.0 will cause an application crash in iOS8.
 
 ##BB10 Notes
 
