@@ -1,5 +1,6 @@
 var exec = require('cordova/exec'),
     screenOrientation = {},
+    iosOrientation = 'unlocked',
     orientationMap  = {
         'portrait': [0,180],
         'portrait-primary': [0],
@@ -11,14 +12,26 @@ var exec = require('cordova/exec'),
     };
 
 screenOrientation.setOrientation = function(orientation) {
-    exec(null, null, "YoikScreenOrientation", "screenOrientation", ['set', orientation]);
+    iosOrientation = orientation;
+
+    var success = function(res) {
+        if (orientation === 'unlocked' && res.device) {
+            iosOrientation = res.device;
+
+            setTimeout(function() {
+                iosOrientation = 'unlocked';
+            },0);
+        }
+    };
+
+    exec(success, null, "YoikScreenOrientation", "screenOrientation", ['set', orientation]);
 };
 
 module.exports = screenOrientation;
 
 // ios orientation callback/hook
 window.shouldRotateToOrientation = function(orientation) {
-    var currOrientation = cordova.plugins.screenorientation.currOrientation,
+    var currOrientation = iosOrientation,
         map = orientationMap[currOrientation] || orientationMap['default'];
     return map.indexOf(orientation) >= 0;
 };

@@ -30,9 +30,8 @@ SOFTWARE.
     // this method does not control the orientation, it is set in the .js file.
 
     // SEE https://github.com/Adlotto/cordova-plugin-recheck-screen-orientation
-    // ------------------
-
     // HACK: Force rotate by changing the view hierarchy. Present modal view then dismiss it immediately.
+
     UIViewController *vc = [[UIViewController alloc] init];
     vc.view.alpha = 0;
 
@@ -43,10 +42,29 @@ SOFTWARE.
         });
     }];
 
-    // Assume everything went ok
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    // grab the device orientation so we can pass it back to the js side.
+    NSString *orientation;
+    switch ([[UIDevice currentDevice] orientation]) {
+        case UIDeviceOrientationLandscapeLeft:
+            orientation = @"landscape-secondary";
+            break;
+        case UIDeviceOrientationLandscapeRight:
+            orientation = @"landscape-primary";
+            break;
+        case UIDeviceOrientationPortrait:
+            orientation = @"portrait-primary";
+            break;
+        case UIDeviceOrientationPortraitUpsideDown:
+            orientation = @"portrait-secondary";
+            break;
+        default:
+            orientation = @"portait";
+            break;
+    }
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
+                                                  messageAsDictionary:@{@"device":orientation}];
+
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    // ------------------
 }
 
 @end
