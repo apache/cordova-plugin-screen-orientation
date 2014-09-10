@@ -31,16 +31,8 @@ SOFTWARE.
 
     // SEE https://github.com/Adlotto/cordova-plugin-recheck-screen-orientation
     // HACK: Force rotate by changing the view hierarchy. Present modal view then dismiss it immediately.
-
-    UIViewController *vc = [[UIViewController alloc] init];
-    vc.view.alpha = 0;
-
-    [self.viewController presentViewController:vc animated:NO completion:^{
-        // added to support iOS8 beta 5, @see issue #19
-        dispatch_after(0, dispatch_get_main_queue(), ^{
-            [self.viewController dismissViewControllerAnimated:NO completion:nil];
-        });
-    }];
+    [self.viewController presentViewController:[UIViewController new] animated:NO completion:nil];
+    [self.viewController dismissViewControllerAnimated:NO completion:nil];
 
     // grab the device orientation so we can pass it back to the js side.
     NSString *orientation;
