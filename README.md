@@ -82,10 +82,22 @@ Issue [#1](https://github.com/yoik/cordova-yoik-screenorientation/issues/1) @dok
 
 ####iOS8
 
-Versions prior to 1.2.0 will cause an application crash in iOS8.
+Versions prior to 1.2.0 will cause an application crash in iOS8 due to a change in presentViewController timing.
 
 ##BB10 Notes
 
 Wraps the com.blackberry.app plugin functions, auto installed as a dependancy.
+
+#Changelog
+
+##1.3.0
+
+* [#23](https://github.com/yoik/cordova-yoik-screenorientation/issues/23) iOS8 flicker
+
+##1.2.0-1.2.1
+
+* [#19](https://github.com/yoik/cordova-yoik-screenorientation/issues/19) iOS8 Crash
+
+
 
 Pull requests welcome.

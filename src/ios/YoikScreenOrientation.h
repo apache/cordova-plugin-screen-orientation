@@ -30,3 +30,9 @@ SOFTWARE.
 - (void)screenOrientation:(CDVInvokedUrlCommand *)command;
 
 @end
+
+@interface ForcedViewController : UIViewController
+
+@property (strong, nonatomic) NSString *calledWith;
+
+@end

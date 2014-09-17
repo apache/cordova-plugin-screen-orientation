@@ -27,12 +27,8 @@ SOFTWARE.
 
 -(void)screenOrientation:(CDVInvokedUrlCommand *)command
 {
-    // this method does not control the orientation, it is set in the .js file.
-
-    // SEE https://github.com/Adlotto/cordova-plugin-recheck-screen-orientation
-    // HACK: Force rotate by changing the view hierarchy. Present modal view then dismiss it immediately.
-    [self.viewController presentViewController:[UIViewController new] animated:NO completion:nil];
-    [self.viewController dismissViewControllerAnimated:NO completion:nil];
+    NSArray* arguments = command.arguments;
+    NSString* orientationIn = [arguments objectAtIndex:1];
 
     // grab the device orientation so we can pass it back to the js side.
     NSString *orientation;
@@ -53,10 +49,46 @@ SOFTWARE.
             orientation = @"portait";
             break;
     }
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
-                                                  messageAsDictionary:@{@"device":orientation}];
 
+    if ([orientationIn isEqual: @"unlocked"]) {
+        orientationIn = orientation;
+    }
+
+    // we send the result prior to the view controller presentation so that the JS side
+    // is ready for the unlock call.
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
+        messageAsDictionary:@{@"device":orientation}];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+
+    // SEE https://github.com/Adlotto/cordova-plugin-recheck-screen-orientation
+    // HACK: Force rotate by changing the view hierarchy. Present modal view then dismiss it immediately
+    // This has been changed substantially since iOS8 broke it...
+    ForcedViewController *vc = [[ForcedViewController alloc] init];
+    vc.calledWith = orientationIn;
+
+    // backgound should be transparent as it is briefly visible
+    // prior to closing.
+    vc.view.backgroundColor = [UIColor clearColor];
+    // vc.view.alpha = 0.0;
+    vc.view.opaque = YES;
+    // This stops us getting the black application background flash, iOS8
+    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+
+    [self.viewController presentViewController:vc animated:NO completion:nil];
+    [self.viewController dismissViewControllerAnimated:NO completion:nil];
 }
 
+@end
+
+@implementation ForcedViewController
+
+- (NSUInteger) supportedInterfaceOrientations
+{
+    if ([self.calledWith rangeOfString:@"portrait"].location != NSNotFound) {
+        return UIInterfaceOrientationMaskPortrait;
+    } else if([self.calledWith rangeOfString:@"landscape"].location != NSNotFound) {
+        return UIInterfaceOrientationMaskLandscape;
+    }
+    return UIInterfaceOrientationMaskAll;
+}
 @end
