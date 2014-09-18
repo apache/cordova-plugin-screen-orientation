@@ -17,10 +17,9 @@ screenOrientation.setOrientation = function(orientation) {
     var success = function(res) {
         if (orientation === 'unlocked' && res.device) {
             iosOrientation = res.device;
-
             setTimeout(function() {
                 iosOrientation = 'unlocked';
-            },0);
+            },300);
         }
     };
 
