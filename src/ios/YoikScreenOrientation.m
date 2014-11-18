@@ -71,8 +71,11 @@ SOFTWARE.
     vc.view.backgroundColor = [UIColor clearColor];
     // vc.view.alpha = 0.0;
     vc.view.opaque = YES;
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
     // This stops us getting the black application background flash, iOS8
     vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+#endif
 
     [self.viewController presentViewController:vc animated:NO completion:nil];
     [self.viewController dismissViewControllerAnimated:NO completion:nil];
