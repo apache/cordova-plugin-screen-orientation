@@ -90,6 +90,10 @@ Wraps the com.blackberry.app plugin functions, auto installed as a dependancy.
 
 #Changelog
 
+##1.3.2
+
+* [#33](https://github.com/yoik/cordova-yoik-screenorientation/issues/33) iOS8 Delay Block
+
 ##1.3.0
 
 * [#23](https://github.com/yoik/cordova-yoik-screenorientation/issues/23) iOS8 flicker
