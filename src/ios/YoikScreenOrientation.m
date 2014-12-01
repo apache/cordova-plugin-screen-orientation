@@ -77,8 +77,12 @@ SOFTWARE.
     vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
 #endif
 
-    [self.viewController presentViewController:vc animated:NO completion:nil];
-    [self.viewController dismissViewControllerAnimated:NO completion:nil];
+    [self.viewController presentViewController:vc animated:NO completion:^{
+        // added to support iOS8 beta 5, @see issue #19
+        dispatch_after(0, dispatch_get_main_queue(), ^{
+            [self.viewController dismissViewControllerAnimated:NO completion:nil];
+        });
+    }];
 }
 
 @end
