@@ -52,4 +52,16 @@
         </js-module>
     </platform>
 
+  <platform name="wp8">
+    <config-file target="config.xml" parent="/*">
+      <feature name="YoikScreenOrientation">
+        <param name="wp-package" value="YoikScreenOrientation"/>
+      </feature>
+    </config-file>
+	  <js-module src="www/screenorientation.wp8.js" name="screenorientation.wp8">
+		  <merges target="cordova.plugins.screenorientation" />
+	  </js-module>
+    <source-file src="src/wp/YoikScreenOrientation.cs" />
+  </platform>
+
 </plugin>
