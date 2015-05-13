@@ -43,10 +43,15 @@ namespace WPCordovaClassLib.Cordova.Commands
     public class YoikScreenOrientation : BaseCommand
     {
         #region Static members
-
         private const string UNLOCKED = "unlocked";
+
         private const string PORTRAIT = "portrait";
+        private const string PORTRAIT_PRIMARY = "portrait-primary";
+        private const string PORTRAIT_SECONDARY = "portrait-secondary";
+
         private const string LANDSCAPE = "landscape";
+        private const string LANDSCAPE_PRIMARY = "landscape-primary";
+        private const string LANDSCAPE_SECONDARY = "landscape-secondary";
 
         #endregion
 
@@ -93,11 +98,12 @@ namespace WPCordovaClassLib.Cordova.Commands
                     if (TryCast(Application.Current.RootVisual, out frame) &&
                       TryCast(frame.Content, out page))
                     {
-                        if (orientation == PORTRAIT)
+                        if (orientation == PORTRAIT || orientation == PORTRAIT_PRIMARY || orientation == PORTRAIT_SECONDARY)
                         {
                             page.SupportedOrientations = SupportedPageOrientation.Portrait;
                         }
-                        else if (orientation == LANDSCAPE)
+
+                        else if (orientation == LANDSCAPE || orientation == LANDSCAPE_PRIMARY || orientation == LANDSCAPE_SECONDARY)
                         {
                             page.SupportedOrientations = SupportedPageOrientation.Landscape;
                         }
