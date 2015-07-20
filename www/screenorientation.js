@@ -76,13 +76,13 @@ function orientationChange() {
              orientation = 'portrait-primary';
              break;
         case 90:
-            orientation = 'landscape-secondary';
+            orientation = 'landscape-primary';
             break;
         case 180:
             orientation = 'portrait-secondary';
             break;
         case -90:
-            orientation = 'landscape-primary';
+            orientation = 'landscape-secondary';
             break;
         default:
             orientation = 'unknown';
