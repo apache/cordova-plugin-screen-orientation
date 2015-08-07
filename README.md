@@ -96,6 +96,9 @@ Windows phone does not support specification or primary and secondary orientatio
 
 # Changelog
 
+## 1.3.7
+* Added Windows 8.1 Support
+
 ## 1.3.5-6
 * Plugin added to npm
 
