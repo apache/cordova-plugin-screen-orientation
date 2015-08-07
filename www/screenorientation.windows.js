@@ -1,6 +1,6 @@
 var screenOrientation = {};
 
-screenOrientation.lockOrientation = function (orientation) {
+screenOrientation.setOrientation = function (orientation) {
     var orientationNumber;
     switch (orientation) {
         case 'landscape':
