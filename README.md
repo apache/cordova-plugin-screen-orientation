@@ -106,8 +106,11 @@ Windows 8.1 Applicaitons (runtime/metro applications) will only display orientat
 
 # Changelog
 
-## 1.3.7
+## 1.4.0
 * Added Windows 8.1 Support
+* [#54](https://github.com/gbenvenuti/cordova-plugin-screen-orientation/pull/54) Background thread for ios
+* [#64](https://github.com/gbenvenuti/cordova-plugin-screen-orientation/pull/64) Orientation naming bug fixed
+* Add portrait upside down to iOS default orientations
 
 ## 1.3.5-6
 * Plugin added to npm
