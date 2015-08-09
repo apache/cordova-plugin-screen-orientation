@@ -100,7 +100,14 @@ Wraps the com.blackberry.app plugin functions, auto installed as a dependancy.
 
 Windows phone does not support specification or primary and secondary orientations.  If called with a specific orientation the plugin will just apply the landscape or portait orientation.
 
+## W8.1 Notes
+
+Windows 8.1 Applicaitons (runtime/metro applications) will only display orientation changes if the device has some sort of accelerometer.  The internal state of the "orientation" will still be kept, but the actual screen won't rotate unless the device supports it.
+
 # Changelog
+
+## 1.3.7
+* Added Windows 8.1 Support
 
 ## 1.3.5-6
 * Plugin added to npm
