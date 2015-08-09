@@ -45,24 +45,22 @@ screenOrientation.setOrientation = function(orientation) {
     console.log('setOrientation not supported on device');
 };
 
-function addScreenOrientationApi(obj) {
-    if (obj.unlockOrientation || obj.lockOrientation) {
+function addScreenOrientationApi(screenObject) {
+    if (screenObject.unlockOrientation || screenObject.lockOrientation) {
         return;
     }
 
-    obj.lockOrientation = function(orientation) {
+    screenObject.lockOrientation = function(orientation) {
         if (Orientations.indexOf(orientation) == -1) {
             console.log('INVALID ORIENTATION', orientation);
             return;
         }
-        screenOrientation.currOrientation = orientation;
-        screen.orientation = screenOrientation.currOrientation;
+        screenOrientation.currOrientation = screenObject.orientation = orientation;
         screenOrientation.setOrientation(orientation);
     };
 
-    obj.unlockOrientation = function() {
-        screenOrientation.currOrientation = 'unlocked';
-        screen.orientation = screenOrientation.currOrientation;
+    screenObject.unlockOrientation = function() {
+        screenOrientation.currOrientation = screenObject.orientation = 'unlocked';
         screenOrientation.setOrientation('unlocked');
     };
 }
