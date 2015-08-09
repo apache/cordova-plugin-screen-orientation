@@ -64,6 +64,12 @@ For this plugin to follow the full API events should be fired on the screen obje
 iOS and BB10 do not currently support events on the _screen_ object so custom event
 handling will need to be added (Suggestions welcome!).
 
+### Example usage
+
+    window.addEventListener("orientationchange", function(){
+        console.log('Orientation changed to ' + screen.orientation);
+    });
+
 ## Android Notes
 
 The __screen.orientation__ property will not update when the phone is [rotated 180 degrees](http://www.quirksmode.org/dom/events/orientationchange.html).

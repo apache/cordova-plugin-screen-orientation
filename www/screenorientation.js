@@ -56,11 +56,13 @@ function addScreenOrientationApi(obj) {
             return;
         }
         screenOrientation.currOrientation = orientation;
+        screen.orientation = screenOrientation.currOrientation;
         screenOrientation.setOrientation(orientation);
     };
 
     obj.unlockOrientation = function() {
         screenOrientation.currOrientation = 'unlocked';
+        screen.orientation = screenOrientation.currOrientation;
         screenOrientation.setOrientation('unlocked');
     };
 }
@@ -76,13 +78,13 @@ function orientationChange() {
              orientation = 'portrait-primary';
              break;
         case 90:
-            orientation = 'landscape-secondary';
+            orientation = 'landscape-primary';
             break;
         case 180:
             orientation = 'portrait-secondary';
             break;
         case -90:
-            orientation = 'landscape-primary';
+            orientation = 'landscape-secondary';
             break;
         default:
             orientation = 'unknown';
