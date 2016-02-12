@@ -95,7 +95,7 @@ SOFTWARE.
 
 @implementation ForcedViewController
 
-- (NSUInteger) supportedInterfaceOrientations
+- (UIInterfaceOrientationMask) supportedInterfaceOrientations
 {
     if ([self.calledWith rangeOfString:@"portrait"].location != NSNotFound) {
         return UIInterfaceOrientationMaskPortrait;

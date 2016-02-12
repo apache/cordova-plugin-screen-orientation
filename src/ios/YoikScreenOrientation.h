@@ -23,7 +23,6 @@ SOFTWARE.
  */
 
 #import <Cordova/CDVPlugin.h>
-#import <Cordova/CDVShared.h>
 
 @interface YoikScreenOrientation : CDVPlugin
 
