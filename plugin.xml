@@ -43,7 +43,7 @@
         </js-module>
         <header-file src="src/ios/YoikScreenOrientation.h" />
         <source-file src="src/ios/YoikScreenOrientation.m" />
-        <source-file src="src/ios/CDVViewController+UpdateSupportedOrientations.h" />
+        <header-file src="src/ios/CDVViewController+UpdateSupportedOrientations.h" />
         <source-file src="src/ios/CDVViewController+UpdateSupportedOrientations.m" />
     </platform>
 
