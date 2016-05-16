@@ -28,9 +28,19 @@
 {
     [self.commandDelegate runInBackground:^{
 
+        if(self.originalSupportedOrientations == nil) {
+            self.originalSupportedOrientations = [self.viewController valueForKey:@"supportedOrientations"];
+        }
+
         NSArray* arguments = command.arguments;
         NSString* orientationIn = [arguments objectAtIndex:1];
 
+        if ([orientationIn isEqual: @"unlocked"]) {
+            [(CDVViewController*)self.viewController updateSupportedOrientations:self.originalSupportedOrientations];
+            self.originalSupportedOrientations = nil;
+            return;
+        }
+        
         // grab the device orientation so we can pass it back to the js side.
         NSString *orientation;
         switch ([[UIDevice currentDevice] orientation]) {
@@ -49,10 +59,6 @@
             default:
                 orientation = @"portait";
                 break;
-        }
-
-        if ([orientationIn isEqual: @"unlocked"]) {
-            orientationIn = orientation;
         }
 
         // we send the result prior to the view controller presentation so that the JS side

@@ -25,6 +25,7 @@
 @interface YoikScreenOrientation : CDVPlugin
 
 - (void)screenOrientation:(CDVInvokedUrlCommand *)command;
+@property (strong, nonatomic) NSArray *originalSupportedOrientations;
 
 @end
 
