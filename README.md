@@ -133,6 +133,9 @@ Windows 8.1 Applicaitons (runtime/metro applications) will only display orientat
 
 # Changelog
 
+## 1.4.2
+* [#101](https://github.com/gbenvenuti/cordova-plugin-screen-orientation/pull/101) make iOS rotate as needed when lockOrientation is called
+
 ## 1.4.1
 * [#89](https://github.com/gbenvenuti/cordova-plugin-screen-orientation/pull/89) Fix for cordova >= 3.6.3
 
