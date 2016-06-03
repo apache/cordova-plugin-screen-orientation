@@ -83,7 +83,7 @@
     </platform>
 
     <platform name="windows">
-        <js-module src="www/screenOrientation.windows.js" name="screenorientation.windows">
+        <js-module src="www/screenorientation.windows.js" name="screenorientation.windows">
             <merges target="cordova.plugins.screenorientation" />
         </js-module>
     </platform>
