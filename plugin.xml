@@ -1,65 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Licensed to the Apache Software Foundation (ASF) under one
-  or more contributor license agreements.  See the NOTICE file
-  distributed with this work for additional information
-  regarding copyright ownership.  The ASF licenses this file
-  to you under the Apache License, Version 2.0 (the
-  "License"); you may not use this file except in compliance
-  with the License.  You may obtain a copy of the License at
-    http://www.apache.org/licenses/LICENSE-2.0
-  Unless required by applicable law or agreed to in writing,
-  software distributed under the License is distributed on an
-  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-  KIND, either express or implied.  See the License for the
-  specific language governing permissions and limitations
-  under the License.
--->
+ Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements.  See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership.  The ASF licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
+ http://www.apache.org/licenses/LICENSE-2.0
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+ -->
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     id="cordova-plugin-screen-orientation"
     version="1.4.2">
-
+    
     <name>Screen Orientation</name>
     <description>Adds Screen Orientation API lock and unlock functions to the global screen object in android, iOS, WP8, W8.1, and BB10.</description>
     <license>MIT</license>
-
+    
     <engines>
         <engine name="cordova" version=">=3.0.0" />
     </engines>
-
+    
     <js-module src="www/screenorientation.js" name="screenorientation">
         <clobbers target="cordova.plugins.screenorientation" />
     </js-module>
-
+    
     <platform name="ios">
         <config-file target="config.xml" parent="/*">
-            <feature name="YoikScreenOrientation">
-                <param name="ios-package" value="YoikScreenOrientation" />
+            <feature name="CDVOrientation">
+                <param name="ios-package" value="CDVOrientation" />
             </feature>
         </config-file>
-        <js-module src="www/screenorientation.ios.js" name="screenorientation.ios">
-            <merges target="cordova.plugins.screenorientation" />
-        </js-module>
-        <header-file src="src/ios/YoikScreenOrientation.h" />
-        <source-file src="src/ios/YoikScreenOrientation.m" />
-        <header-file src="src/ios/CDVViewController+UpdateSupportedOrientations.h" />
-        <source-file src="src/ios/CDVViewController+UpdateSupportedOrientations.m" />
+        
+        <header-file src="src/ios/CDVOrientation.h" />
+        <source-file src="src/ios/CDVOrientation.m" />
+        
     </platform>
-
+    
     <platform name="android">
-        <source-file src="src/android/YoikScreenOrientation.java" target-dir="src/net/yoik/cordova/plugins/screenorientation/" />
-
+        <source-file src="src/android/CDVOrientation.java" target-dir="src/cordova/plugins/screenorientation/" />
+        
         <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="YoikScreenOrientation">
-                <param name="android-package" value="net.yoik.cordova.plugins.screenorientation.YoikScreenOrientation" />
+            <feature name="CDVOrientation">
+                <param name="android-package" value="cordova.plugins.screenorientation.CDVOrientation" />
             </feature>
         </config-file>
-        <js-module src="www/screenorientation.android.js" name="screenorientation.android">
-            <merges target="cordova.plugins.screenorientation" />
-        </js-module>
+        
     </platform>
-
+    
     <platform name="blackberry10">
         <dependency id="com.blackberry.app" />
         <config-file target="www/config.xml" parent="/widget">
@@ -69,23 +64,13 @@
             <merges target="cordova.plugins.screenorientation" />
         </js-module>
     </platform>
-
-    <platform name="wp8">
-        <config-file target="config.xml" parent="/*">
-            <feature name="YoikScreenOrientation">
-                <param name="wp-package" value="YoikScreenOrientation"/>
-            </feature>
-        </config-file>
-        <js-module src="www/screenorientation.wp8.js" name="screenorientation.wp8">
-            <merges target="cordova.plugins.screenorientation" />
-        </js-module>
-        <source-file src="src/wp/YoikScreenOrientation.cs" />
-    </platform>
-
+    
+    
+    
     <platform name="windows">
-        <js-module src="www/screenorientation.windows.js" name="screenorientation.windows">
-            <merges target="cordova.plugins.screenorientation" />
+        <js-module src="src/windows/CDVOrientationProxy.js" name="CDVOrientationProxy">
+            <merges target="" />
         </js-module>
     </platform>
-
+    
 </plugin>
