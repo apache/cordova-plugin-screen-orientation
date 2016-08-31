@@ -67,6 +67,9 @@ cordova plugin add cordova-plugin-screen-orientation
 #### landscape
 > The orientation is either landscape-primary or landscape-secondary (sensor).
 
+#### any
+>  orientation is  landscape-primary or landscape-secondary (sensor).
+
 ## Usage
 
 ```js
@@ -101,37 +104,14 @@ window.addEventListener("orientationchange", function(){
 
 The __screen.orientation__ property will not update when the phone is [rotated 180 degrees](http://www.quirksmode.org/dom/events/orientationchange.html).
 
-## iOS Notes
-
-The iOS version is a combination of the cordova JS callback _window.shouldRotateToOrientation_ and the workaround to recheck the orientation as implemented in https://github.com/Adlotto/cordova-plugin-recheck-screen-orientation.
-
-__If you have a custom implementation of the _window.shouldRotateToOrientation_ it will have to be removed for the plugin to function as expected.__
-
-#### iOS6
-
-There has been a few cases where the rotation does not change the width of the viewport
-
-Issue [#1](https://github.com/gbenvenuti/cordova-plugin-screen-orientation/issues/1) @dokterbob
-
->It seems to be related to having width=device-width, height=device-height in the meta viewport (which is part of the boilerplate phonegap/cordova app). It can be solved by updating the viewport with width=device-height, height=device-width or simply removing width and height altogether.
-
-#### iOS8
-
-Versions prior to 1.2.0 will cause an application crash in iOS8 due to a change in presentViewController timing.
-
 ## BB10 Notes
 
 Wraps the com.blackberry.app plugin functions, auto installed as a dependancy.
 
-## WP8 Notes
-
-Windows phone does not support specification or primary and secondary orientations.  If called with a specific orientation the plugin will just apply the landscape or portait orientation.
-
-## W8.1 Notes
-
-Windows 8.1 Applicaitons (runtime/metro applications) will only display orientation changes if the device has some sort of accelerometer.  The internal state of the "orientation" will still be kept, but the actual screen won't rotate unless the device supports it.
-
 # Changelog
+
+## 2.0
+* Common javascript for iOS, Android and Windows.
 
 ## 1.4.2
 * [#101](https://github.com/gbenvenuti/cordova-plugin-screen-orientation/pull/101) make iOS rotate as needed when lockOrientation is called

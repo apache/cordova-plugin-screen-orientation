@@ -36,7 +36,7 @@
                                ];
 
                screenOrientation.Orientations = Orientations;
-               screenOrientation.currOrientation = 'natural';
+               screenOrientation.currOrientation = 'any';
                var orientationMask = 0;
                screenOrientation.setOrientation = function(orientation) {
                if(orientation == 'portrait-primary'){
@@ -57,7 +57,7 @@
                else if(orientation == 'landscape'){
                orientationMask = 12;
                }
-               else if(orientation == 'natural'){
+               else if(orientation == 'any'){
                orientationMask = 15;
                }
 
@@ -81,8 +81,8 @@
                };
 
                screenObject.unlockOrientation = function() {
-               screenOrientation.currOrientation = screenObject.orientation = 'natural';
-               screenOrientation.setOrientation('natural');
+               screenOrientation.currOrientation = screenObject.orientation = 'any';
+               screenOrientation.setOrientation('any');
                };
                }
 
@@ -106,7 +106,7 @@
                orientation = 'landscape-secondary';
                break;
                default:
-               orientation = 'unknown';
+               orientation = 'any';
                }
 
                screen.orientation = orientation;

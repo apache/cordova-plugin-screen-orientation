@@ -33,13 +33,12 @@ import android.util.Log;
 
 public class CDVOrientation extends CordovaPlugin {
     
-    private static final String TAG = "YoikScreenOrientation";
     
     /**
      * Screen Orientation Constants
      */
     
-    private static final String UNLOCKED = "unlocked";
+    private static final String ANY = "any";
     private static final String PORTRAIT_PRIMARY = "portrait-primary";
     private static final String PORTRAIT_SECONDARY = "portrait-secondary";
     private static final String LANDSCAPE_PRIMARY = "landscape-primary";
@@ -74,7 +73,7 @@ public class CDVOrientation extends CordovaPlugin {
         
         Activity activity = cordova.getActivity();
         
-        if (orientation.equals(UNLOCKED)) {
+        if (orientation.equals(ANY)) {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         } else if (orientation.equals(LANDSCAPE_PRIMARY)) {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
