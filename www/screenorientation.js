@@ -1,3 +1,4 @@
+cordova.define("cordova-plugin-screen-orientation.screenorientation", function(require, exports, module) {
 /*
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -72,12 +73,29 @@
                }
 
                screenObject.lockOrientation = function(orientation) {
-               if (Orientations.indexOf(orientation) == -1) {
-               console.log('INVALID ORIENTATION', orientation);
-               return;
-               }
-               screenOrientation.currOrientation = screenObject.orientation = orientation;
-               screenOrientation.setOrientation(orientation);
+
+               var p = new Promise(function(resolve,reject){
+                                   if (Orientations.indexOf(orientation) == -1) {
+                                   //   console.log('INVALID ORIENTATION', orientation);
+                                   var err = new Error();
+                                   err.name = "NotSupportedError";
+
+                                   reject(err);//"cannot change orientation");
+
+                                   }
+                                   else {
+                                screenOrientation.currOrientation = screenObject.orientation = orientation;
+                                screenOrientation.setOrientation(orientation);
+                                   resolve("Orientation changed"); // orientation change successful
+                                   }
+
+
+
+
+                                   });
+               return p;
+
+
                };
 
                screenObject.unlockOrientation = function() {
@@ -115,3 +133,5 @@
                window.addEventListener("orientationchange", orientationChange, true);
 
                module.exports = screenOrientation;
+
+});
