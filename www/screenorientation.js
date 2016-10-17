@@ -32,33 +32,35 @@ cordova.define("cordova-plugin-screen-orientation.screenorientation", function(r
                                // The orientation is in the secondary landscape mode.
                                'portrait',
                                // The orientation is either portrait-primary or portrait-secondary.
-                               'landscape'
+                               'landscape',
                                // The orientation is either landscape-primary or landscape-secondary.
+                               'any'
+                               // All orientations are supported
                                ];
 
                screenOrientation.Orientations = Orientations;
                screenOrientation.currOrientation = 'any';
                var orientationMask = 0;
                screenOrientation.setOrientation = function(orientation) {
-               if(orientation == 'portrait-primary'){
+               if(orientation == Orientations[0]){
                orientationMask = 1;
                }
-               else if(orientation == 'portrait-secondary'){
+               else if(orientation == Orientations[1]){
                orientationMask = 2;
                }
-               else if(orientation == 'landscape-primary'){
+               else if(orientation == Orientations[2]){
                orientationMask = 4;
                }
-               else if(orientation == 'landscape-secondary'){
+               else if(orientation == Orientations[3]){
                orientationMask = 8;
                }
-               else if(orientation == 'portrait'){
+               else if(orientation == Orientations[4]){
                orientationMask = 3;
                }
-               else if(orientation == 'landscape'){
+               else if(orientation == Orientations[5]){
                orientationMask = 12;
                }
-               else if(orientation == 'any'){
+               else if(orientation == Orientations[6]){
                orientationMask = 15;
                }
 
@@ -73,29 +75,24 @@ cordova.define("cordova-plugin-screen-orientation.screenorientation", function(r
                }
 
                screenObject.lockOrientation = function(orientation) {
-
+               
                var p = new Promise(function(resolve,reject){
                                    if (Orientations.indexOf(orientation) == -1) {
-                                   //   console.log('INVALID ORIENTATION', orientation);
                                    var err = new Error();
                                    err.name = "NotSupportedError";
-
+                                   
                                    reject(err);//"cannot change orientation");
-
+                                   
                                    }
                                    else {
                                 screenOrientation.currOrientation = screenObject.orientation = orientation;
                                 screenOrientation.setOrientation(orientation);
-                                   resolve("Orientation changed"); // orientation change successful
+                                   resolve("Orientation set"); // orientation change successful
                                    }
-
-
-
-
-                                   });
+                                  });
                return p;
-
-
+               
+              
                };
 
                screenObject.unlockOrientation = function() {
