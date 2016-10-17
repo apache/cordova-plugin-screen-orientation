@@ -36,12 +36,6 @@ The plugin adds the following to the screen object (`window.screen`):
 
 ## Install
 
-_cordova < 4_
-
-```bash
-cordova plugin add net.yoik.cordova.plugins.screenorientation
-```
-_cordova > 4_
 
 ```bash
 cordova plugin add cordova-plugin-screen-orientation
@@ -68,7 +62,7 @@ cordova plugin add cordova-plugin-screen-orientation
 > The orientation is either landscape-primary or landscape-secondary (sensor).
 
 #### any
->  orientation is  landscape-primary or landscape-secondary (sensor).
+>  orientation is  unlocked - all orientations are supported.
 
 ## Usage
 
@@ -88,9 +82,6 @@ console.log('Orientation is ' + screen.orientation);
 Both android and iOS will fire the orientationchange event on the window object.
 For this version of the plugin use the window object if you require notification.
 
-For this plugin to follow the full API events should be fired on the screen object.
-iOS and BB10 do not currently support events on the _screen_ object so custom event
-handling will need to be added (Suggestions welcome!).
 
 ### Example usage
 
@@ -110,7 +101,7 @@ Wraps the com.blackberry.app plugin functions, auto installed as a dependancy.
 
 # Changelog
 
-## 2.0
+## 2.0.0
 * Common javascript for iOS, Android and Windows.
 
 ## 1.4.2

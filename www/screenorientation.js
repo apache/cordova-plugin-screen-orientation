@@ -35,7 +35,7 @@ cordova.define("cordova-plugin-screen-orientation.screenorientation", function(r
                                'landscape',
                                // The orientation is either landscape-primary or landscape-secondary.
                                'any'
-                               // All orientations are supported
+                               // All orientations are supported (unlocked orientation)
                                ];
 
                screenOrientation.Orientations = Orientations;
