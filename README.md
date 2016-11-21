@@ -77,7 +77,7 @@ screen.lockOrientation('landscape');
 screen.unlockOrientation();
 
 // access current orientation
-console.log('Orientation is ' + screen.orientation);
+console.log('Orientation is ', screen.orientation);
 ```
 
 ## Events
