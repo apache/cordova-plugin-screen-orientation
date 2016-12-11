@@ -131,10 +131,9 @@ Windows phone does not support specification or primary and secondary orientatio
 
 Windows 8.1 Applicaitons (runtime/metro applications) will only display orientation changes if the device has some sort of accelerometer.  The internal state of the "orientation" will still be kept, but the actual screen won't rotate unless the device supports it.
 
-# Changelog
+# Legacy Changelog
 
-## 1.4.2
-* [#101](https://github.com/gbenvenuti/cordova-plugin-screen-orientation/pull/101) make iOS rotate as needed when lockOrientation is called
+See [RELEASENOTES.md](RELEASENOTES.md) for the automated changelog.
 
 ## 1.4.1
 * [#89](https://github.com/gbenvenuti/cordova-plugin-screen-orientation/pull/89) Fix for cordova >= 3.6.3
