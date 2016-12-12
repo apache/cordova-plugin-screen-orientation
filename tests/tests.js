@@ -19,10 +19,18 @@
  *
 */
 
-#import <Cordova/CDVViewController.h>
+/* jshint jasmine: true */
 
-@interface CDVViewController (UpdateSupportedOrientations)
+exports.defineAutoTests = function() {
+  describe('Orientation Information (window.orientation)', function () {
+    it("should exist", function() {
+      expect(window.orientation).toBeDefined();
+    });
 
-- (void)updateSupportedOrientations:(NSArray *)orientations;
+    it("should contain a platform specification that is a string", function() {
+      expect(window.orientation).toBeDefined();
+      expect((String(window.orientation.type)).length > 0).toBe(true);
+    });
 
-@end
+  });
+};

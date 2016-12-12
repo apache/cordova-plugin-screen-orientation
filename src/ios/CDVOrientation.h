@@ -17,13 +17,15 @@
  * specific language governing permissions and limitations
  * under the License.
  *
-*/
+ */
 
-var exec = require('cordova/exec'),
-    screenOrientation = {};
+#import <Cordova/CDVPlugin.h>
+#import <UIKit/UIKit.h>
+#import <Cordova/CDVViewController.h>
 
-screenOrientation.setOrientation = function(orientation) {
-    exec(null, null, "YoikScreenOrientation", "screenOrientation", ['set', orientation]);
-};
+@interface CDVOrientation : CDVPlugin
+{}
 
-module.exports = screenOrientation;
+- (void)screenOrientation:(CDVInvokedUrlCommand *)command;
+
+@end
