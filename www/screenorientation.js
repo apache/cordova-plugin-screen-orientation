@@ -1,4 +1,3 @@
-cordova.define("cordova-plugin-screen-orientation.screenorientation", function(require, exports, module) {
 /*
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -20,115 +19,102 @@ cordova.define("cordova-plugin-screen-orientation.screenorientation", function(r
  *
  */
 
-               var screenOrientation = {},
-               Orientations = [
-                               'portrait-primary',
-                               // The orientation is in the primary portrait mode.
-                               'portrait-secondary',
-                               // The orientation is in the secondary portrait mode.
-                               'landscape-primary',
-                               // The orientation is in the primary landscape mode.
-                               'landscape-secondary',
-                               // The orientation is in the secondary landscape mode.
-                               'portrait',
-                               // The orientation is either portrait-primary or portrait-secondary.
-                               'landscape',
-                               // The orientation is either landscape-primary or landscape-secondary.
-                               'any'
-                               // All orientations are supported (unlocked orientation)
-                               ];
+var screenOrientation = {},
+    Orientations = [
+        'portrait-primary',
+        'portrait-secondary',
+        'landscape-primary',
+        'landscape-secondary',
+        'portrait',  // either portrait-primary or portrait-secondary.
+        'landscape', // either landscape-primary or landscape-secondary.
+        'any'        // All orientations are supported (unlocked orientation)
+    ];
 
-               screenOrientation.Orientations = Orientations;
-               screenOrientation.currOrientation = 'any';
-               var orientationMask = 0;
-               screenOrientation.setOrientation = function(orientation) {
-               if(orientation == Orientations[0]){
-               orientationMask = 1;
-               }
-               else if(orientation == Orientations[1]){
-               orientationMask = 2;
-               }
-               else if(orientation == Orientations[2]){
-               orientationMask = 4;
-               }
-               else if(orientation == Orientations[3]){
-               orientationMask = 8;
-               }
-               else if(orientation == Orientations[4]){
-               orientationMask = 3;
-               }
-               else if(orientation == Orientations[5]){
-               orientationMask = 12;
-               }
-               else if(orientation == Orientations[6]){
-               orientationMask = 15;
-               }
+screenOrientation.Orientations = Orientations;
+screenOrientation.currOrientation = 'any';
+var orientationMask = 0;
+screenOrientation.setOrientation = function(orientation) {
+    if(orientation == Orientations[0]){
+        orientationMask = 1;
+    }
+    else if(orientation == Orientations[1]){
+        orientationMask = 2;
+    }
+    else if(orientation == Orientations[2]){
+        orientationMask = 4;
+    }
+    else if(orientation == Orientations[3]){
+        orientationMask = 8;
+    }
+    else if(orientation == Orientations[4]){
+        orientationMask = 3;
+    }
+    else if(orientation == Orientations[5]){
+        orientationMask = 12;
+    }
+    else if(orientation == Orientations[6]){
+        orientationMask = 15;
+    }
 
 
-               cordova.exec(null, null, "CDVOrientation", "screenOrientation", [orientationMask, orientation]);
-               //console.log('setOrientation not supported on device');
-               };
+    cordova.exec(null, null, "CDVOrientation", "screenOrientation", [orientationMask, orientation]);
+    //console.log('setOrientation not supported on device');
+};
 
-               function addScreenOrientationApi(screenObject) {
-               if (screenObject.unlockOrientation || screenObject.lockOrientation) {
-               return;
-               }
+function addScreenOrientationApi(screenObject) {
+    if (screenObject.unlockOrientation || screenObject.lockOrientation) {
+        return;
+    }
 
-               screenObject.lockOrientation = function(orientation) {
-               
-               var p = new Promise(function(resolve,reject){
-                                   if (Orientations.indexOf(orientation) == -1) {
-                                   var err = new Error();
-                                   err.name = "NotSupportedError";
-                                   
-                                   reject(err);//"cannot change orientation");
-                                   
-                                   }
-                                   else {
-                                screenOrientation.currOrientation = screenObject.orientation = orientation;
-                                screenOrientation.setOrientation(orientation);
-                                   resolve("Orientation set"); // orientation change successful
-                                   }
-                                  });
-               return p;
-               
-              
-               };
+    screenObject.lockOrientation = function(orientation) {
 
-               screenObject.unlockOrientation = function() {
-               screenOrientation.currOrientation = screenObject.orientation = 'any';
-               screenOrientation.setOrientation('any');
-               };
-               }
+        var p = new Promise(function(resolve,reject){
+            if (Orientations.indexOf(orientation) == -1) {
+                var err = new Error();
+                err.name = "NotSupportedError";
+                reject(err);//"cannot change orientation");
+            }
+            else {
+                screenOrientation.currOrientation = screenObject.orientation = orientation;
+                screenOrientation.setOrientation(orientation);
+                resolve("Orientation set"); // orientation change successful
+            }
+        });
+        return p;
+    };
 
-               addScreenOrientationApi(screen);
-               orientationChange();
+    screenObject.unlockOrientation = function() {
+        screenOrientation.currOrientation = screenObject.orientation = 'any';
+        screenOrientation.setOrientation('any');
+    };
+}
 
-               function orientationChange() {
-               var orientation;
+addScreenOrientationApi(screen);
+orientationChange();
 
-               switch (window.orientation) {
-               case 0:
-               orientation = 'portrait-primary';
-               break;
-               case 90:
-               orientation = 'landscape-primary';
-               break;
-               case 180:
-               orientation = 'portrait-secondary';
-               break;
-               case -90:
-               orientation = 'landscape-secondary';
-               break;
-               default:
-               orientation = 'any';
-               }
+function orientationChange() {
+    var orientation;
 
-               screen.orientation = orientation;
-               }
+    switch (window.orientation) {
+        case 0:
+            orientation = 'portrait-primary';
+            break;
+        case 90:
+            orientation = 'landscape-primary';
+            break;
+        case 180:
+            orientation = 'portrait-secondary';
+            break;
+        case -90:
+            orientation = 'landscape-secondary';
+            break;
+        default:
+        orientation = 'any';
+    }
 
-               window.addEventListener("orientationchange", orientationChange, true);
+    screen.orientation = orientation;
+}
 
-               module.exports = screenOrientation;
+window.addEventListener("orientationchange", orientationChange, true);
 
-});
+module.exports = screenOrientation;
