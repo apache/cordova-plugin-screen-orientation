@@ -4,7 +4,7 @@
   "description": "Adds Screen Orientation API lock and unlock functions to the global screen object in android, iOS, WP8, W8.1, and BB10.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gbenvenuti/cordova-plugin-screen-orientation.git"
+    "url": "https://github.com/apache/cordova-plugin-screen-orientation"
   },
   "scripts": {
     "test": "npm run jshint",
@@ -29,11 +29,14 @@
   ],
   "author": "gbenvenuti",
   "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/gbenvenuti/cordova-plugin-screen-orientation/issues"
-  },
-  "homepage": "https://github.com/gbenvenuti/cordova-plugin-screen-orientation#readme",
   "devDependencies": {
     "jshint": "^2.9.4"
-  }
+  },
+  "engines": {
+      "cordovaDependencies": {
+        "3.0.0": {
+          "cordova": ">100"
+        }
+      }
+    }
 }
