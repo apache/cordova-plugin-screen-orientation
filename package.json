@@ -6,6 +6,10 @@
     "type": "git",
     "url": "git+https://github.com/gbenvenuti/cordova-plugin-screen-orientation.git"
   },
+  "scripts": {
+    "test": "npm run jshint",
+    "jshint": "node node_modules/jshint/bin/jshint www && node node_modules/jshint/bin/jshint src && node node_modules/jshint/bin/jshint demo/www"
+  },
   "cordova": {
     "id": "cordova-plugin-screen-orientation",
     "platforms": [
@@ -28,5 +32,8 @@
   "bugs": {
     "url": "https://github.com/gbenvenuti/cordova-plugin-screen-orientation/issues"
   },
-  "homepage": "https://github.com/gbenvenuti/cordova-plugin-screen-orientation#readme"
+  "homepage": "https://github.com/gbenvenuti/cordova-plugin-screen-orientation#readme",
+  "devDependencies": {
+    "jshint": "^2.9.4"
+  }
 }
