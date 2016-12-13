@@ -15,7 +15,7 @@ Thumbs.db
 demo/hooks/
 demo/platforms/
 demo/plugins/
-
+/node_modules/
 .vscode/
 
 
