@@ -33,6 +33,7 @@ import android.util.Log;
 
 public class CDVOrientation extends CordovaPlugin {
     
+    private static final String TAG = "YoikScreenOrientation"; 
     
     /**
      * Screen Orientation Constants
