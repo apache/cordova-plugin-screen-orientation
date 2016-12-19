@@ -20,11 +20,11 @@
 */
 
 var DisplayInfo = Windows.Graphics.Display.DisplayInformation;
-    var Orientations = Windows.Graphics.Display.DisplayOrientations;
+var Orientations = Windows.Graphics.Display.DisplayOrientations;
 
 module.exports = {
-    setAllowedOrientations: function (win, fail, args) {
-        //console.log("setAllowedOrientations proxy called with " + args);
+    screenOrientation: function (win, fail, args) {
+        //console.log("screenOrientation proxy called with " + args);
 
         try {
             var prefOrients = args[0];

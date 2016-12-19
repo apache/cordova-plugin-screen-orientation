@@ -29,8 +29,24 @@ exports.defineAutoTests = function() {
 
     it("should contain a platform specification that is a string", function() {
       expect(window.orientation).toBeDefined();
-      expect((String(window.orientation.type)).length > 0).toBe(true);
+      if (window.orientation) {
+        expect((String(window.orientation.type)).length > 0).toBe(true);
+      }
     });
 
+    it("should successfully lock and unlock screen orientation", function (done) {
+      try {
+        screen.lockOrientation('landscape').then(function () {
+          expect(screen.unlockOrientation).not.toThrow();
+          done();
+        }, function (err) {
+          fail('Promise was rejected: ' + err);
+          done();
+        });
+      } catch (e) {
+        fail(e);
+        done();
+      }
+    });
   });
 };
