@@ -64,12 +64,15 @@
         </js-module>
     </platform>
 
-
-
     <platform name="windows">
         <js-module src="src/windows/CDVOrientationProxy.js" name="CDVOrientationProxy">
             <merges target="" />
         </js-module>
     </platform>
+
+    <dependency
+        id="es6-promise-plugin"
+        url="https://github.com/vstirbu/PromisesPlugin.git">
+    </dependency>
 
 </plugin>
