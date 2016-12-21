@@ -22,31 +22,38 @@
 /* jshint jasmine: true */
 
 exports.defineAutoTests = function() {
-  describe('Orientation Information (window.orientation)', function () {
-    it("should exist", function() {
-      expect(window.orientation).toBeDefined();
-    });
-
-    it("should contain a platform specification that is a string", function() {
-      expect(window.orientation).toBeDefined();
-      if (window.orientation) {
-        expect((String(window.orientation.type)).length > 0).toBe(true);
-      }
-    });
-
-    it("should successfully lock and unlock screen orientation", function (done) {
-      try {
-        screen.lockOrientation('landscape').then(function () {
-          expect(screen.unlockOrientation).not.toThrow();
-          done();
-        }, function (err) {
-          fail('Promise was rejected: ' + err);
-          done();
+    describe('Orientation Information (window.screen.orientation)', function () {
+        it('should exist', function() {
+            if (window.screen) {
+                expect(window.screen.orientation).toBeDefined();
+            } else {
+                fail('No screen object is present');
+            }
         });
-      } catch (e) {
-        fail(e);
-        done();
-      }
+
+        it('should contain a platform specification that is a string', function() {
+            if (window.screen && window.screen.orientation) {
+                expect((String(window.screen.orientation.type)).length > 0).toBe(true);
+            } else {
+                fail('No orientation object is present');
+            }
+        });
     });
-  });
+
+    describe('Screen functions', function () {
+        it('should successfully lock and unlock screen orientation', function (done) {
+            try {
+                window.screen.lockOrientation('landscape').then(function () {
+                    expect(window.screen.unlockOrientation).not.toThrow();
+                    done();
+                }, function (err) {
+                    fail('Promise was rejected: ' + err);
+                    done();
+                });
+            } catch (e) {
+                fail(e);
+                done();
+            }
+        });
+    });
 };
