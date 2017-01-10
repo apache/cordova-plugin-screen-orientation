@@ -94,22 +94,8 @@
     orientationChange();
 
     function orientationChange() {
-        switch (window.orientation) {
-            case 0:
-                screen.orientation.type = window.OrientationType['0']; //append angle here ?
-                break;
-            case 90:
-                screen.orientation.type = window.OrientationType['90'];
-                break;
-            case 180:
-                screen.orientation.type = window.OrientationType['180'];
-                break;
-            case -90:
-                screen.orientation.type = window.OrientationType['-90'];
-                break;
-            default:
-                screen.orientation.type = window.OrientationType['0'];
-        }
+        screen.orientation.type = window.OrientationType[window.orientation];
+               
     }
     window.addEventListener("orientationchange", orientationChange, true);
     module.exports = screenOrientation;
