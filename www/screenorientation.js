@@ -56,15 +56,15 @@
             var p = new Promise(function(resolve, reject) {
                 if (screenObject.nativeLock != null) {
                     promiseLock = screenObject.nativeLock(orientation);
-                } else {
-                    resolveOrientation(orientation, resolve, reject);
-                }
-                promiseLock.then(function success(res) {
+                    promiseLock.then(function success(res) {
                     resolve();
                 }, function error(err) {
                     screenObject.nativeLock = null;
                     resolveOrientation(orientation, resolve, reject);
                 });
+                } else {
+                    resolveOrientation(orientation, resolve, reject);
+                }
             })
             return p;
         }
