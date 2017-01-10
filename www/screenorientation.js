@@ -19,102 +19,97 @@
  *
  */
 
-var screenOrientation = {},
-    Orientations = [
-        'portrait-primary',
-        'portrait-secondary',
-        'landscape-primary',
-        'landscape-secondary',
-        'portrait',  // either portrait-primary or portrait-secondary.
-        'landscape', // either landscape-primary or landscape-secondary.
-        'any'        // All orientations are supported (unlocked orientation)
-    ];
 
-screenOrientation.Orientations = Orientations;
-screenOrientation.currOrientation = 'any';
-var orientationMask = 0;
-screenOrientation.setOrientation = function(orientation) {
-    if(orientation == Orientations[0]){
-        orientationMask = 1;
+    var screenOrientation = {};
+    if (!window.OrientationType) {
+        window.OrientationType = {
+            '0': 'portrait-primary',
+            '180': 'portrait-secondary',
+            '90': 'landscape-primary',
+            '-90': 'landscape-secondary'
+        };
     }
-    else if(orientation == Orientations[1]){
-        orientationMask = 2;
+    if (!window.OrientationLockType) {
+        window.OrientationLockType = {
+            'portrait-primary': 1,
+            'portrait-secondary': 2,
+            'landscape-primary': 4,
+            'landscape-secondary': 8,
+            'portrait': 3, // either portrait-primary or portrait-secondary.
+            'landscape': 12, // either landscape-primary or landscape-secondary.
+            'any': 15 // All orientations are supported (unlocked orientation)
+        };
     }
-    else if(orientation == Orientations[2]){
-        orientationMask = 4;
-    }
-    else if(orientation == Orientations[3]){
-        orientationMask = 8;
-    }
-    else if(orientation == Orientations[4]){
-        orientationMask = 3;
-    }
-    else if(orientation == Orientations[5]){
-        orientationMask = 12;
-    }
-    else if(orientation == Orientations[6]){
-        orientationMask = 15;
-    }
-
-
-    cordova.exec(null, null, "CDVOrientation", "screenOrientation", [orientationMask, orientation]);
-    //console.log('setOrientation not supported on device');
-};
-
-function addScreenOrientationApi(screenObject) {
-    if (screenObject.unlockOrientation || screenObject.lockOrientation) {
-        return;
-    }
-
-    screenObject.lockOrientation = function(orientation) {
-
-        var p = new Promise(function(resolve,reject){
-            if (Orientations.indexOf(orientation) == -1) {
-                var err = new Error();
-                err.name = "NotSupportedError";
-                reject(err);//"cannot change orientation");
-            }
-            else {
-                screenOrientation.currOrientation = screenObject.orientation = orientation;
-                screenOrientation.setOrientation(orientation);
-                resolve("Orientation set"); // orientation change successful
-            }
-        });
-        return p;
+    var orientationMask = 1;
+    screenOrientation.setOrientation = function(orientation) {
+        orientationMask = window.OrientationLockType[orientation];
+        cordova.exec(null, null, "CDVOrientation", "screenOrientation", [orientationMask, orientation]);
     };
 
-    screenObject.unlockOrientation = function() {
-        screenOrientation.currOrientation = screenObject.orientation = 'any';
-        screenOrientation.setOrientation('any');
-    };
-}
+    function addScreenOrientationApi(screenObject) {
+        if (screenObject.unlock || screenObject.lock) {
+            screenObject.nativeLock = screenObject.lock;
+        }
 
-addScreenOrientationApi(screen);
-orientationChange();
+        screenObject.lock = function(orientation) {
+            var promiseLock;
+            var p = new Promise(function(resolve, reject) {
+                if (screenObject.nativeLock != null) {
+                    promiseLock = screenObject.nativeLock(orientation);
+                    flag = true;
+                } else {
+                    resolveOrientation(orientation, resolve, reject);
+                }
+                promiseLock.then(function success(res) {
+                    resolve();
+                }, function error(err) {
+                    screenObject.nativeLock = null;
+                    resolveOrientation(orientation, resolve, reject);
+                });
+            })
+            return p;
+        }
 
-function orientationChange() {
-    var orientation;
+        screenObject.unlock = function() {
+            screenOrientation.setOrientation('any');
+        };
 
-    switch (window.orientation) {
-        case 0:
-            orientation = 'portrait-primary';
-            break;
-        case 90:
-            orientation = 'landscape-primary';
-            break;
-        case 180:
-            orientation = 'portrait-secondary';
-            break;
-        case -90:
-            orientation = 'landscape-secondary';
-            break;
-        default:
-        orientation = 'any';
     }
+    function resolveOrientation(orientation, resolve, reject) {
+        if (!OrientationLockType.hasOwnProperty(orientation)) {
+            var err = new Error();
+            err.name = "NotSupportedError";
+            reject(err); //"cannot change orientation");
+        } else {
+            //screenOrientation.currOrientation = screenObject.orientation = orientation;
+            screenOrientation.setOrientation(orientation);
+            resolve("Orientation set"); // orientation change successful
+        }
 
-    screen.orientation = orientation;
-}
+    }
+    if (!screen.orientation) {
+        screen.orientation = {};
+    }
+    addScreenOrientationApi(screen.orientation);
+    orientationChange();
 
-window.addEventListener("orientationchange", orientationChange, true);
-
-module.exports = screenOrientation;
+    function orientationChange() {
+        switch (window.orientation) {
+            case 0:
+                screen.orientation.type = window.OrientationType['0']; //append angle here ?
+                break;
+            case 90:
+                screen.orientation.type = window.OrientationType['90'];
+                break;
+            case 180:
+                screen.orientation.type = window.OrientationType['180'];
+                break;
+            case -90:
+                screen.orientation.type = window.OrientationType['-90'];
+                break;
+            default:
+                screen.orientation.type = window.OrientationType['0'];
+        }
+    }
+    window.addEventListener("orientationchange", orientationChange, true);
+    module.exports = screenOrientation;

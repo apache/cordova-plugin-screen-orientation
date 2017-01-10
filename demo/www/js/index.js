@@ -36,44 +36,35 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
         btnPortrait.addEventListener("click", function() {
-            //    alert('Orientation is ' + screen.orientation);
-            screen.lockOrientation('portrait').then(function(obj) {
+            screen.orientation.lock('portrait').then(function(obj) {
                 console.log(obj);
-            }).catch(function(obj) {
+            }, function(obj) {
                 console.log(obj);
             });
         });
         btnLandscape.addEventListener("click", function() {
-            //    alert('Orientation is ' + screen.orientation);
-            screen.lockOrientation('landscape').then(function(obj) {
+            screen.orientation.lock('landscape').then(function(obj) {
                 console.log(obj);
-            }).catch(function(obj) {
+            }, function(obj) {
                 console.log(obj);
             });
         });
         btnPortPrimary.addEventListener("click", function() {
-            //    alert('Orientation is ' + screen.orientation);
-            screen.lockOrientation('portrait-primary').then(function(obj) {
+            screen.orientation.lock('portrait-primary').then(function(obj) {
                 console.log(obj);
-            }).catch(function(obj) {
+            }, function(obj) {
                 console.log(obj);
             });
         });
         btnLandPrimary.addEventListener("click", function() {
-            //    alert('Orientation is ' + screen.orientation);
-            screen.lockOrientation('landscape-primary').then(function(obj) {
+            screen.orientation.lock('landscape-primary').then(function(obj) {
                 console.log(obj);
-            }).catch(function(obj) {
+            }, function(obj) {
                 console.log(obj);
             });
         });
         btnAny.addEventListener("click", function() {
-            //    alert('Orientation is ' + screen.orientation);
-            screen.lockOrientation('any').then(function(obj) {
-                console.log(obj);
-            }).catch(function(obj) {
-                console.log(obj);
-            });
+            screen.orientation.unlock();
         });
 
 
