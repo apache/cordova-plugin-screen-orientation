@@ -43,8 +43,8 @@ exports.defineAutoTests = function() {
     describe('Screen functions', function () {
         it('should successfully lock and unlock screen orientation', function (done) {
             try {
-                window.screen.lockOrientation('landscape').then(function () {
-                    expect(window.screen.unlockOrientation).not.toThrow();
+                window.screen.orientation.lock('landscape').then(function () {
+                    expect(window.screen.orientation.unlock).not.toThrow();
                     done();
                 }, function (err) {
                     fail('Promise was rejected: ' + err);
@@ -67,7 +67,6 @@ exports.defineAutoTests = function() {
 		expect(window.OrientationLockType['portrait']).toBe(3);
 		expect(window.OrientationLockType['landscape']).toBe(12);
 		expect(window.OrientationLockType['any']).toBe(15);
-		 alert(window.screen.orientation.angle);
 		});
    });
   describe('Screen object should exist', function () {
@@ -83,11 +82,9 @@ exports.defineAutoTests = function() {
       expect(window.screen.orientation.lock).toEqual(jasmine.any(Function));
       expect(window.screen.orientation.unlock).toEqual(jasmine.any(Function));
       });
-	it(" Screenorientation object should contain properties called type and angle", function() {
+	it(" Screenorientation object should contain property called type", function() {
       expect(window.screen.orientation.type).toBeDefined();
-      expect(window.screen.orientation.angle).toBeDefined();
-
-      });
+  });
 
   });
 };
