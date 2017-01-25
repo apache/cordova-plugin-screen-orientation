@@ -69,22 +69,5 @@ exports.defineAutoTests = function() {
 		expect(window.OrientationLockType['any']).toBe(15);
 		});
    });
-  describe('Screen object should exist', function () {
 
-    it("should exist", function() {
-      expect(window.screen).toBeDefined();
-    });
-
-    it(" screen should contain an attribute called ScreenOrientation", function() {
-      expect(window.screen.orientation).toBeDefined();
-      });
-    it(" Screenorientation object should contain methods called lock and unlock", function() {
-      expect(window.screen.orientation.lock).toEqual(jasmine.any(Function));
-      expect(window.screen.orientation.unlock).toEqual(jasmine.any(Function));
-      });
-	it(" Screenorientation object should contain property called type", function() {
-      expect(window.screen.orientation.type).toBeDefined();
-  });
-
-  });
 };
