@@ -103,7 +103,6 @@ The __screen.orientation__ property will not update when the phone is [rotated 1
 
 Wraps the com.blackberry.app plugin functions, auto installed as a dependancy.
 
-<<<<<<< HEAD
 ## WP8 Notes
 
 Windows phone does not support specification or primary and secondary orientations.  If called with a specific orientation the plugin will just apply the landscape or portait orientation.
