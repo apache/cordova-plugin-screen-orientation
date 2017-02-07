@@ -29,10 +29,10 @@ The plugin adds the following to the screen object (`window.screen`):
 
 ```js
 // lock the device orientation
-.lockOrientation('portrait')
+.orientation.lock('portrait')
 
 // unlock the orientation
-.unlockOrientation()
+.orientation.unlock()
 
 // current orientation
 .orientation
@@ -72,10 +72,10 @@ cordova plugin add cordova-plugin-screen-orientation
 
 ```js
 // set to either landscape
-screen.lockOrientation('landscape');
+screen.orientation.lock('landscape');
 
 // allow user rotate
-screen.unlockOrientation();
+screen.orientation.unlock();
 
 // access current orientation
 console.log('Orientation is ' + screen.orientation);
