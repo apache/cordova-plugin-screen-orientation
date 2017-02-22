@@ -52,6 +52,8 @@
             </feature>
         </config-file>
 
+        <dependency id="es6-promise-plugin" url="https://github.com/vstirbu/PromisesPlugin.git"/>
+
     </platform>
 
     <platform name="blackberry10">
@@ -62,10 +64,7 @@
         <js-module src="www/screenorientation.bb10.js" name="screenorientation.bb10">
             <merges target="cordova.plugins.screenorientation" />
         </js-module>
-            <dependency
-        id="es6-promise-plugin"
-        url="https://github.com/vstirbu/PromisesPlugin.git">
-    </dependency>
+        <dependency id="es6-promise-plugin" url="https://github.com/vstirbu/PromisesPlugin.git"/>
     </platform>
 
     <platform name="windows">
