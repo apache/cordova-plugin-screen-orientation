@@ -52,10 +52,27 @@
     
     if([vc respondsToSelector:selector]) {
         ((void (*)(CDVViewController*, SEL, NSMutableArray*))objc_msgSend)(vc,selector,result);
+        
+        if ([UIDevice currentDevice] != nil){
+            NSNumber *value = nil;
+            if(orientationMask == 8 || orientationMask == 12) {
+                value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight];
+            } else if (orientationMask == 4){
+                value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
+            } else if (orientationMask == 1 || orientationMask == 3) {
+                value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
+            } else if (orientationMask == 2) {
+                value = [NSNumber numberWithInt:UIInterfaceOrientationPortraitUpsideDown];
+            }
+            if (value != nil) {
+                [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+            }
+        }
+        
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     }
     else {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_INVALID_ACTION                messageAsString:@"Error calling to set supported orientations"];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_INVALID_ACTION messageAsString:@"Error calling to set supported orientations"];
     }
     
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
