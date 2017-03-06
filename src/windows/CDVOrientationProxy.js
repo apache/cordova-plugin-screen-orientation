@@ -53,6 +53,6 @@ module.exports = {
         }
 
     }
-}
+};
 
 require("cordova/exec/proxy").add("CDVOrientation", module.exports);
