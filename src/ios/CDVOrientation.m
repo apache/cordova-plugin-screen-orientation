@@ -69,12 +69,10 @@
             }
         }
         
-        [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
-        
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     }
     else {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_INVALID_ACTION                messageAsString:@"Error calling to set supported orientations"];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_INVALID_ACTION messageAsString:@"Error calling to set supported orientations"];
     }
     
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
