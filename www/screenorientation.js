@@ -54,7 +54,7 @@
         screenObject.lock = function(orientation) {
             var promiseLock;
             var p = new Promise(function(resolve, reject) {
-                if (screenObject.nativeLock != null) {
+                if (screenObject.nativeLock !== null) {
                     promiseLock = screenObject.nativeLock(orientation);
                     promiseLock.then(function success(res) {
                     resolve();
@@ -65,9 +65,9 @@
                 } else {
                     resolveOrientation(orientation, resolve, reject);
                 }
-            })
+            });
             return p;
-        }
+        };
 
         screenObject.unlock = function() {
             screenOrientation.setOrientation('any');
@@ -94,7 +94,7 @@
 
     function orientationChange() {
         screen.orientation.type = window.OrientationType[window.orientation];
-               
+
     }
     window.addEventListener("orientationchange", orientationChange, true);
     module.exports = screenOrientation;
