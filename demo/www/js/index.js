@@ -66,8 +66,13 @@ var app = {
         btnAny.addEventListener("click", function() {
             screen.orientation.unlock();
         });
+        btnOnchange.addEventListener("click", function() {
+            screen.orientation.onchange = myFunction1();
 
-
+        });
+        btnAddEvtListener.addEventListener("click", function() {
+            screen.orientation.addEventListener('change', myFunction2(), true);
+        });
 
 
     },
@@ -83,5 +88,13 @@ var app = {
         console.log('Received Event: ' + id);
     }
 };
+
+function myFunction1() {
+    alert('This change listener uses screen.orientation.onchange');
+}
+
+function myFunction2() {
+    alert('This change listener uses screen.orientation.addEventListener');
+}
 
 app.initialize();

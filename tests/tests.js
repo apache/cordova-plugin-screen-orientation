@@ -17,10 +17,8 @@
  * specific language governing permissions and limitations
  * under the License.
  *
-*/
-
+ */
 /* jshint jasmine: true */
-
 exports.defineAutoTests = function() {
 
     describe('window.screen', function() {
@@ -51,14 +49,13 @@ exports.defineAutoTests = function() {
             expect(typeof window.screen.orientation.type).toBe('string');
         });
 
-        xit('should have an `angle` property (number)', function() {
+        it('should have an `angle` property (number)', function() {
             expect(window.screen.orientation.angle).toBeDefined();
             expect(typeof window.screen.orientation.angle).toBe('number');
         });
 
         xit('should have an `onchange` property (function)', function() {
             expect(window.screen.orientation.onchange).toBeDefined();
-            expect(typeof window.screen.orientation.onchange).toBe('function');
         });
     });
 
@@ -68,7 +65,7 @@ exports.defineAutoTests = function() {
             expect(window.OrientationType).toBeDefined();
         });
 
-        xit("should have defined types", function(){
+        it("should have defined types", function() {
             expect(window.OrientationType['portrait-primary']).toBeDefined();
             expect(window.OrientationType['portrait-secondary']).toBeDefined();
             expect(window.OrientationType['landscape-primary']).toBeDefined();
@@ -82,7 +79,7 @@ exports.defineAutoTests = function() {
             expect(window.OrientationLockType).toBeDefined();
         });
 
-        it("should have defined types", function(){
+        it("should have defined types", function() {
             expect(window.OrientationLockType['portrait-primary']).toBeDefined();
             expect(window.OrientationLockType['portrait-secondary']).toBeDefined();
             expect(window.OrientationLockType['landscape-primary']).toBeDefined();
@@ -99,12 +96,12 @@ exports.defineAutoTests = function() {
     // test onchange works
     describe('window.screen.orientation', function() {
 
-        xit('should successfully lock and unlock screen orientation, lock should return a promise', function(done) {
+        it('should successfully lock and unlock screen orientation, lock should return a promise', function(done) {
+
             try {
                 var promise = window.screen.orientation.lock('landscape');
                 expect(promise).toBeDefined();
-                expect(typeof promise).toBe('promise');
-
+                expect(typeof promise.then).toBe('function');
                 promise.then(function() {
                     expect(window.screen.orientation.unlock).not.toThrow();
                     done();
@@ -117,6 +114,7 @@ exports.defineAutoTests = function() {
                 fail(err);
                 done();
             }
+
         });
     });
 };
