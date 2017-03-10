@@ -54,8 +54,29 @@ exports.defineAutoTests = function() {
             expect(typeof window.screen.orientation.angle).toBe('number');
         });
 
-        xit('should have an `onchange` property (function)', function() {
+        it('should have an `onchange` settable function', function() {
+            // it should be null to start
+            expect(window.screen.orientation.onchange).toBe(null);
+            // then we set it
+            var funk = function(){};
+            window.screen.orientation.onchange = funk;
+            // now it should exist
             expect(window.screen.orientation.onchange).toBeDefined();
+            expect(window.screen.orientation.onchange).toBe(funk);
+            // clear it
+            window.screen.orientation.onchange = null;
+            // it should be null again
+            expect(window.screen.orientation.onchange).toBe(null);
+        });
+
+        it('should have an eventListener interface',function() {
+            expect(window.screen.orientation.addEventListener).toBeDefined();
+            expect(typeof window.screen.orientation.addEventListener).toBe('function');
+
+            expect(window.screen.orientation.removeEventListener).toBeDefined();
+            expect(typeof window.screen.orientation.removeEventListener).toBe('function');
+
+
         });
     });
 

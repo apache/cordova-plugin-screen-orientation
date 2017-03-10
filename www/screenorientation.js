@@ -95,31 +95,40 @@ function resolveOrientation(orientation, resolve, reject) {
 addScreenOrientationApi(screen.orientation);
 
 var onChangeListener = null;
+
 Object.defineProperty(screen.orientation, 'onchange', {
-
     set: function(listener) {
+        console.log("setting onchange to : " + listener);
+
         if (onChangeListener != null) {
-            screen.orienation.removeEventListener('change', onChangeListener);
+            screen.orientation.removeEventListener('change', onChangeListener);
         }
-
         onChangeListener = listener;
-
         if (onChangeListener != null) {
             screen.orientation.addEventListener('change', onChangeListener);
         }
+    },
+    get: function() {
+        return (onChangeListener ? onChangeListener : null);
     },
     enumerable: true,
 });
 
 
-
+var evtTarget = new XMLHttpRequest(); //document.createElement('div');
 var orientationchange = function() {
     setOrientationProperties();
     var event = document.createEvent('Events');
     event.initEvent("change", false, false);
-    document.dispatchEvent(event);
-
+    evtTarget.dispatchEvent(event);
 };
+
+screen.orientation.addEventListener = function(a,b,c) {
+    return evtTarget.addEventListener(a,b,c);
+}
+screen.orientation.removeEventListener = function(a,b,c) {
+    return evtTarget.removeEventListener(a,b,c);
+}
 
 function setOrientationProperties() {
     switch (window.orientation) {
@@ -140,5 +149,5 @@ function setOrientationProperties() {
 
 }
 window.addEventListener("orientationchange", orientationchange, true);
-screen.orientation.addEventListener = document.addEventListener;
+
 module.exports = screenOrientation;
