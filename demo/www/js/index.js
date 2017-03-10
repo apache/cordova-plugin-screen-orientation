@@ -66,12 +66,32 @@ var app = {
         btnAny.addEventListener("click", function() {
             screen.orientation.unlock();
         });
-        btnOnchange.addEventListener("click", function() {
-            screen.orientation.onchange = myFunction1();
 
+        var hasOnChange = false;
+        btnOnchange.addEventListener("click", function() {
+            if(hasOnChange) {
+                screen.orientation.onchange = undefined;
+                btnOnchange.innerText = "assign onchange";
+            }
+            else {
+                screen.orientation.onchange = myFunction1;
+                btnOnchange.innerText = "remove onchange";
+            }
+            hasOnChange = !hasOnChange;
         });
+
+        var hasListener = false;
         btnAddEvtListener.addEventListener("click", function() {
-            screen.orientation.addEventListener('change', myFunction2(), true);
+            if(hasListener) {
+                screen.orientation.removeEventListener('change', myFunction2);
+                btnAddEvtListener.innerText = "addEventListener";
+            }
+            else {
+                screen.orientation.addEventListener('change', myFunction2);
+                btnAddEvtListener.innerText = "remEventListener";
+            }
+            hasListener = !hasListener;
+
         });
 
 
