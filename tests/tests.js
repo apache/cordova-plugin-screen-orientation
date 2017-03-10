@@ -54,8 +54,12 @@ exports.defineAutoTests = function() {
             expect(typeof window.screen.orientation.angle).toBe('number');
         });
 
-        xit('should have an `onchange` property (function)', function() {
+        it('should have an `onchange` property (function)', function() {
             expect(window.screen.orientation.onchange).toBeDefined();
+            // spyOn(window.screen.orientation, 'onchange');
+            // var foo = function(){} ;
+            // window.screen.orientation.onchange = foo;
+            // expect(window.screen.orientation.onchange).toHaveBeenCalledWith(foo);
         });
     });
 
@@ -102,14 +106,10 @@ exports.defineAutoTests = function() {
                 var promise = window.screen.orientation.lock('landscape');
                 expect(promise).toBeDefined();
                 expect(typeof promise.then).toBe('function');
-                promise.then(function() {
-                    expect(window.screen.orientation.unlock).not.toThrow();
-                    done();
-                }, function(err) {
-                    expect(err).toBeDefined();
-                    fail(err);
-                    done();
-                });
+                expect(typeof window.screen.orientation.unlock).toBe('function');
+                expect(window.screen.orientation.unlock).not.toThrow();
+                done();
+                    
             } catch (err) {
                 fail(err);
                 done();

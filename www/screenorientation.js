@@ -59,7 +59,7 @@ function addScreenOrientationApi(screenObject) {
     screenObject.lock = function(orientation) {
         var promiseLock;
         var p = new Promise(function(resolve, reject) {
-            if (screenObject.nativeLock != null) {
+            if (screenObject.nativeLock != null screenObject.nativeLock != undefined) {
                 promiseLock = screenObject.nativeLock(orientation);
                 promiseLock.then(function success(res) {
                     resolve();
@@ -99,7 +99,7 @@ Object.defineProperty(screen.orientation, 'onchange', {
 
     set: function(listener) {
         if (onChangeListener != null) {
-            screen.orienation.removeEventListener('change', onChangeListener);
+            screen.orientation.removeEventListener('change', onChangeListener);
         }
 
         onChangeListener = listener;
