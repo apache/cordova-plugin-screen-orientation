@@ -17,57 +17,104 @@
  * specific language governing permissions and limitations
  * under the License.
  *
-*/
-
+ */
 /* jshint jasmine: true */
-
 exports.defineAutoTests = function() {
-    describe('Orientation Information (window.screen.orientation)', function () {
-        it('should exist', function() {
-            if (window.screen) {
-                expect(window.screen.orientation).toBeDefined();
-            } else {
-                fail('No screen object is present');
-            }
-        });
 
-        it('should contain a platform specification that is a string', function() {
-            if (window.screen && window.screen.orientation) {
-                expect((String(window.screen.orientation.type)).length > 0).toBe(true);
-            } else {
-                fail('No orientation object is present');
-            }
+    describe('window.screen', function() {
+
+        it('should be defined', function() {
+            expect(window.screen).toBeDefined();
         });
     });
 
-    describe('Screen functions', function () {
-        it('should successfully lock and unlock screen orientation', function (done) {
+    describe('window.screen.orientation', function() {
+
+        it('should be defined', function() {
+            expect(window.screen.orientation).toBeDefined();
+        });
+
+        it('should have a `lock` function', function() {
+            expect(window.screen.orientation.lock).toBeDefined();
+            expect(typeof window.screen.orientation.lock).toBe('function');
+        });
+
+        it('should have an `unlock` function', function() {
+            expect(window.screen.orientation.unlock).toBeDefined();
+            expect(typeof window.screen.orientation.unlock).toBe('function');
+        });
+
+        it('should have a `type` property (string)', function() {
+            expect(window.screen.orientation.type).toBeDefined();
+            expect(typeof window.screen.orientation.type).toBe('string');
+        });
+
+        it('should have an `angle` property (number)', function() {
+            expect(window.screen.orientation.angle).toBeDefined();
+            expect(typeof window.screen.orientation.angle).toBe('number');
+        });
+
+        it('should have an `onchange` property (function)', function() {
+            expect(window.screen.orientation.onchange).toBeDefined();
+            // spyOn(window.screen.orientation, 'onchange');
+            // var foo = function(){} ;
+            // window.screen.orientation.onchange = foo;
+            // expect(window.screen.orientation.onchange).toHaveBeenCalledWith(foo);
+        });
+    });
+
+    describe('OrientationType', function() {
+
+        it("should be defined", function() {
+            expect(window.OrientationType).toBeDefined();
+        });
+
+        it("should have defined types", function() {
+            expect(window.OrientationType['portrait-primary']).toBeDefined();
+            expect(window.OrientationType['portrait-secondary']).toBeDefined();
+            expect(window.OrientationType['landscape-primary']).toBeDefined();
+            expect(window.OrientationType['landscape-secondary']).toBeDefined();
+        });
+    });
+
+    describe('OrientationLockType', function() {
+
+        it("should be defined", function() {
+            expect(window.OrientationLockType).toBeDefined();
+        });
+
+        it("should have defined types", function() {
+            expect(window.OrientationLockType['portrait-primary']).toBeDefined();
+            expect(window.OrientationLockType['portrait-secondary']).toBeDefined();
+            expect(window.OrientationLockType['landscape-primary']).toBeDefined();
+            expect(window.OrientationLockType['landscape-secondary']).toBeDefined();
+            expect(window.OrientationLockType['portrait']).toBeDefined();
+            expect(window.OrientationLockType['landscape']).toBeDefined();
+            expect(window.OrientationLockType['any']).toBeDefined();
+        });
+    });
+
+
+    // TODO:
+    // test addEventListener('change') works
+    // test onchange works
+    describe('window.screen.orientation', function() {
+
+        it('should successfully lock and unlock screen orientation, lock should return a promise', function(done) {
+
             try {
-                window.screen.orientation.lock('landscape').then(function () {
-                    expect(window.screen.orientation.unlock).not.toThrow();
-                    done();
-                }, function (err) {
-                    fail('Promise was rejected: ' + err);
-                    done();
-                });
-            } catch (e) {
-                fail(e);
+                var promise = window.screen.orientation.lock('landscape');
+                expect(promise).toBeDefined();
+                expect(typeof promise.then).toBe('function');
+                expect(typeof window.screen.orientation.unlock).toBe('function');
+                expect(window.screen.orientation.unlock).not.toThrow();
+                done();
+                    
+            } catch (err) {
+                fail(err);
                 done();
             }
+
         });
     });
-  
-  describe('OrientationLockType should have one of seven values', function () {
-
-	it("should have one of seven orientation lock types", function(){
-		expect(window.OrientationLockType['portrait-primary']).toBe(1);
-		expect(window.OrientationLockType['portrait-secondary']).toBe(2);
-		expect(window.OrientationLockType['landscape-primary']).toBe(4);
-		expect(window.OrientationLockType['landscape-secondary']).toBe(8);
-		expect(window.OrientationLockType['portrait']).toBe(3);
-		expect(window.OrientationLockType['landscape']).toBe(12);
-		expect(window.OrientationLockType['any']).toBe(15);
-		});
-   });
-
 };
