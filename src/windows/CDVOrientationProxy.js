@@ -22,6 +22,10 @@
 var DisplayInfo = Windows.Graphics.Display.DisplayInformation;
 var Orientations = Windows.Graphics.Display.DisplayOrientations;
 
+if (!window.Promise) {
+    window.Promise = WinJS.Promise;
+}
+
 module.exports = {
     screenOrientation: function (win, fail, args) {
         //console.log("screenOrientation proxy called with " + args);

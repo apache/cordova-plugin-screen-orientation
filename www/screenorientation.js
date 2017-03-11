@@ -98,7 +98,6 @@ var onChangeListener = null;
 
 Object.defineProperty(screen.orientation, 'onchange', {
     set: function(listener) {
-        console.log("setting onchange to : " + listener);
 
         if (onChangeListener != null) {
             screen.orientation.removeEventListener('change', onChangeListener);
@@ -144,8 +143,11 @@ function setOrientationProperties() {
         case -90:
             screen.orientation.type = 'landscape-secondary';
             break;
+        default:
+            screen.orientation.type = 'portrait-primary';
+            break;
     }
-    screen.orientation.angle = window.orientation;
+    screen.orientation.angle = window.orientation || 0;
 
 }
 window.addEventListener("orientationchange", orientationchange, true);
