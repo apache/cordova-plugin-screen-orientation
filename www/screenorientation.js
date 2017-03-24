@@ -54,7 +54,7 @@
         screenObject.lock = function(orientation) {
             var promiseLock;
             var p = new Promise(function(resolve, reject) {
-                if (screenObject.nativeLock !== null) {
+                if (screenObject.nativeLock != null) {
                     promiseLock = screenObject.nativeLock(orientation);
                     promiseLock.then(function success(res) {
                     resolve();
