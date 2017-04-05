@@ -78,7 +78,7 @@ screen.orientation.lock('landscape');
 screen.orientation.unlock();
 
 // access current orientation
-console.log('Orientation is ' + screen.orientation);
+console.log('Orientation is ' + screen.orientation.type);
 ```
 
 ## Events
@@ -91,10 +91,24 @@ For this version of the plugin use the window object if you require notification
 
 ```js
 window.addEventListener("orientationchange", function(){
-    console.log(screen.orientation); // e.g. portrait
+    console.log(screen.orientation.type); // e.g. portrait
 });
 ```
 
+The 'change' event listener has also been added to the screen.orientation object.
+
+### Example usage
+
+```js
+screen.orientation.addEventListener('change', function(){
+    console.log(screen.orientation.type); // e.g. portrait
+});
+    // OR
+
+screen.orientation.onchange = function(){console.log(screen.orientation.type);
+};
+
+```
 ## Android Notes
 
 The __screen.orientation__ property will not update when the phone is [rotated 180 degrees](http://www.quirksmode.org/dom/events/orientationchange.html).
