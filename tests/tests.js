@@ -139,3 +139,23 @@ exports.defineAutoTests = function() {
         });
     });
 };
+exports.defineManualTests = function(contentEl, createActionButton) {
+
+    createActionButton('Listen to orientationchange events', function() {
+        window.addEventListener("orientationchange", function(){
+            contentEl.innerHTML += '<p>Orientation changed! ' + screen.orientation.type + '</p>';
+        });
+    });
+    createActionButton('Unlock orientation', function() {
+        screen.orientation.unlock();
+        contentEl.innerHTML += '<p>Orientation unlocked.</p>';
+    });
+    createActionButton('Lock to portrait', function() {
+        screen.orientation.lock('portrait');
+        contentEl.innerHTML += '<p>Orientation locked to portrait.</p>';
+    });
+    createActionButton('Lock to landscape', function() {
+        screen.orientation.lock('landscape');
+        contentEl.innerHTML += '<p>Orientation locked to landscape.</p>';
+    });
+};

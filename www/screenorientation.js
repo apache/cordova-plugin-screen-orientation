@@ -59,7 +59,7 @@ function addScreenOrientationApi(screenObject) {
     screenObject.lock = function(orientation) {
         var promiseLock;
         var p = new Promise(function(resolve, reject) {
-            if (screenObject.nativeLock != null) {
+            if (screenObject.nativeLock) {
                 promiseLock = screenObject.nativeLock(orientation);
                 promiseLock.then(function success(res) {
                     resolve();
@@ -70,14 +70,12 @@ function addScreenOrientationApi(screenObject) {
             } else {
                 resolveOrientation(orientation, resolve, reject);
             }
-        })
+        });
         return p;
-    }
-
+    };
     screenObject.unlock = function() {
         screenOrientation.setOrientation('any');
     };
-
 }
 
 function resolveOrientation(orientation, resolve, reject) {
@@ -99,11 +97,11 @@ var onChangeListener = null;
 Object.defineProperty(screen.orientation, 'onchange', {
     set: function(listener) {
 
-        if (onChangeListener != null) {
+        if (onChangeListener) {
             screen.orientation.removeEventListener('change', onChangeListener);
         }
         onChangeListener = listener;
-        if (onChangeListener != null) {
+        if (onChangeListener) {
             screen.orientation.addEventListener('change', onChangeListener);
         }
     },
@@ -124,10 +122,11 @@ var orientationchange = function() {
 
 screen.orientation.addEventListener = function(a,b,c) {
     return evtTarget.addEventListener(a,b,c);
-}
+};
+
 screen.orientation.removeEventListener = function(a,b,c) {
     return evtTarget.removeEventListener(a,b,c);
-}
+};
 
 function setOrientationProperties() {
     switch (window.orientation) {

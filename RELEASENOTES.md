@@ -22,6 +22,12 @@
 # Release Notes
 
 
+### 2.0.1 (Apr 27, 2017)
+* [CB-12622](https://issues.apache.org/jira/browse/CB-12622) Added **Android 6.0** build badge to `README`
+* [CB-12543](https://issues.apache.org/jira/browse/CB-12543) (iOS) Rotate to specified orientation when locked
+* [CB-12685](https://issues.apache.org/jira/browse/CB-12685) added `package.json` to tests folder
+* [CB-12588](https://issues.apache.org/jira/browse/CB-12588) add manual tests in cordova-plugin-test-framework style
+
 ### 2.0.0 (Mar 14, 2017)
 * [CB-11628](https://issues.apache.org/jira/browse/CB-11628) - w3c spec compliance https://www.w3.org/TR/screen-orientation/
 
