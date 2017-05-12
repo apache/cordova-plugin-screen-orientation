@@ -52,7 +52,7 @@
             </feature>
         </config-file>
 
-        <dependency id="es6-promise-plugin" url="https://github.com/vstirbu/PromisesPlugin.git"/>
+        <dependency id="es6-promise-plugin" version="^4.1.0" />
 
     </platform>
 
@@ -64,7 +64,7 @@
         <js-module src="www/screenorientation.bb10.js" name="screenorientation.bb10">
             <merges target="cordova.plugins.screenorientation" />
         </js-module>
-        <dependency id="es6-promise-plugin" url="https://github.com/vstirbu/PromisesPlugin.git"/>
+        <dependency id="es6-promise-plugin" version="^4.1.0"/>
     </platform>
 
     <platform name="windows">
