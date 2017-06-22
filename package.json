@@ -35,6 +35,9 @@
   "devDependencies": {
     "jshint": "^2.9.4"
   },
+  "peerDependencies": {
+    "@ionic-native/core": "^3.6.1"
+  },
   "engines": {
     "cordovaDependencies": {
       "3.0.0": {
