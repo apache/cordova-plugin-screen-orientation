@@ -26,6 +26,7 @@
 @interface CDVOrientation : CDVPlugin
 {
 @protected
+    BOOL _isLocked;
     UIInterfaceOrientation _lastOrientation;
 }
 

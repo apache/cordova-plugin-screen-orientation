@@ -51,12 +51,16 @@
     SEL selector = NSSelectorFromString(@"setSupportedOrientations:");
     
     if([vc respondsToSelector:selector]) {
-        ((void (*)(CDVViewController*, SEL, NSMutableArray*))objc_msgSend)(vc,selector,result);
+        if (orientationMask != 15 || [UIDevice currentDevice] == nil) {
+            ((void (*)(CDVViewController*, SEL, NSMutableArray*))objc_msgSend)(vc,selector,result);
+        }
         
         if ([UIDevice currentDevice] != nil){
             NSNumber *value = nil;
             if (orientationMask != 15) {
-                _lastOrientation = [UIApplication sharedApplication].statusBarOrientation;
+                if (!_isLocked) {
+                    _lastOrientation = [UIApplication sharedApplication].statusBarOrientation;
+                }
                 if(orientationMask == 8 || orientationMask == 12) {
                     value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight];
                 } else if (orientationMask == 4){
@@ -67,13 +71,17 @@
                     value = [NSNumber numberWithInt:UIInterfaceOrientationPortraitUpsideDown];
                 }
             } else {
-                if (_lastOrientation != nil) {
-                    value = [NSNumber numberWithInt:_lastOrientation];
+                if (_lastOrientation != UIInterfaceOrientationUnknown) {
+                    [[UIDevice currentDevice] setValue:[NSNumber numberWithInt:_lastOrientation] forKey:@"orientation"];
+                    ((void (*)(CDVViewController*, SEL, NSMutableArray*))objc_msgSend)(vc,selector,result);
+                    [UINavigationController attemptRotationToDeviceOrientation];
                 }
             }
             if (value != nil) {
+                _isLocked = true;
                 [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
-                [UINavigationController attemptRotationToDeviceOrientation];
+            } else {
+                _isLocked = false;
             }
         }
         
