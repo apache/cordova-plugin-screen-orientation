@@ -23,7 +23,7 @@ var screenOrientation = {};
 
 screenOrientation.setOrientation = function(orientation) {
     if (blackberry.app) {
-        if (orientation === 'unlocked') {
+        if (orientation === 'any') {
             blackberry.app.unlockOrientation();
         } else {
             blackberry.app.lockOrientation(orientation);
