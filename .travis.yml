@@ -1,0 +1,82 @@
+sudo: false
+addons:
+  jwt:
+    secure: CpTKIU5+sYxwFDRI73/Yjhm/pIzlTCRhVJRqe6SkN5WlrB+rtx2FLuwwBY5wAYMcUcRWLa4KOARFfdNSOU3z5EMZb4WiRfSrSZYLvrMA2qN9fuBg8RufNwcVXRo6TFJhlqOMsFx2mpjGcsV875Y5sZP62h+SbtdeMloHbWkFI3wjpVd7ut/U3/nBZ7e/cQqOdqFJc65EzMwUfDUvHAde259WhSUx5zEy1aCNNFvuCGYzvYL+B7wpweGVXgOlOLpxSAgWQte1esNGfa/+LKmdwD55OszScxvoSmiha0Ux2ctCUNxStD4mhSeGvDSdJFFWxvLEnZ769Yc7zh7/7yJ4iJxw3/G2yXXVCAPD2aXmsXcLD8x/KoiDwoTyOD9302FdXMTPaJEAD5inNkK69dftn5xfErBNb39JZTQuYcfav/DvFlqciTP5kCeIC3/t3zfeQcLbP5lgFoR+tTKbkvuUAl/Vo6mw1pt9BSSztbxgDJRHKXTi904WIonLlTSkZxMOD0Y2KVDHhNLzUcKA9YHt42FUp7T1EbsHsIzzwEFsR3cMaQp/Ku/X62mZscKycsrKoReX8hU1hAkWPwtxUtsKjHBVTkJNdPJLMpt53jVbh28EX09aY9niRm2puJDgWPHIqr99zEUlqLyLSKr4KERTz2ONq7wSSLv+AMeJgDyfyTE=
+env:
+  global:
+  - SAUCE_USERNAME=snay
+  - TRAVIS_NODE_VERSION="4.2"
+matrix:
+  include:
+  - env: PLATFORM=browser-chrome
+    os: linux
+    language: node_js
+    node_js: '4.2'
+  - env: PLATFORM=browser-firefox
+    os: linux
+    language: node_js
+    node_js: '4.2'
+  - env: PLATFORM=browser-safari
+    os: linux
+    language: node_js
+    node_js: '4.2'
+  - env: PLATFORM=browser-edge
+    os: linux
+    language: node_js
+    node_js: '4.2'
+  - env: PLATFORM=ios-9.3
+    os: osx
+    osx_image: xcode7.3
+    language: node_js
+    node_js: '4.2'
+  - env: PLATFORM=ios-10.0
+    os: osx
+    osx_image: xcode7.3
+    language: node_js
+    node_js: '4.2'
+  - env: PLATFORM=android-4.4
+    os: linux
+    language: android
+    jdk: oraclejdk8
+    android:
+      components:
+      - tools
+  - env: PLATFORM=android-5.1
+    os: linux
+    language: android
+    jdk: oraclejdk8
+    android:
+      components:
+      - tools
+  - env: PLATFORM=android-6.0
+    os: linux
+    language: android
+    jdk: oraclejdk8
+    android:
+      components:
+      - tools
+  - env: PLATFORM=android-7.0
+    os: linux
+    language: android
+    jdk: oraclejdk8
+    android:
+      components:
+      - tools
+before_install:
+- rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm
+  && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm
+  install $TRAVIS_NODE_VERSION
+- node --version
+- if [[ "$PLATFORM" =~ android ]]; then gradle --version; fi
+- if [[ "$PLATFORM" =~ ios ]]; then npm install -g ios-deploy; fi
+- if [[ "$PLATFORM" =~ android ]]; then echo y | android update sdk -u --filter android-22,android-23,android-24,android-25,android-26;
+  fi
+- git clone https://github.com/apache/cordova-paramedic /tmp/paramedic && pushd /tmp/paramedic
+  && npm install && popd
+- npm install -g cordova
+install:
+- npm install
+script:
+- npm test
+- node /tmp/paramedic/main.js --config pr/$PLATFORM --plugin $(pwd) --shouldUseSauce
+  --buildName travis-plugin-screen-orientation-$TRAVIS_JOB_NUMBER

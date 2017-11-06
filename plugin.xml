@@ -18,7 +18,7 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     id="cordova-plugin-screen-orientation"
-    version="2.0.1">
+    version="2.0.2">
     <name>Screen Orientation</name>
     <description>Adds Screen Orientation API lock and unlock functions to the global screen object in android, iOS, WP8, W8.1, and BB10.</description>
     <license>Apache 2.0</license>
@@ -52,7 +52,7 @@
             </feature>
         </config-file>
 
-        <dependency id="es6-promise-plugin" url="https://github.com/vstirbu/PromisesPlugin.git"/>
+        <dependency id="es6-promise-plugin" version="^4.1.0" />
 
     </platform>
 
@@ -64,7 +64,7 @@
         <js-module src="www/screenorientation.bb10.js" name="screenorientation.bb10">
             <merges target="cordova.plugins.screenorientation" />
         </js-module>
-        <dependency id="es6-promise-plugin" url="https://github.com/vstirbu/PromisesPlugin.git"/>
+        <dependency id="es6-promise-plugin" version="^4.1.0"/>
     </platform>
 
     <platform name="windows">
