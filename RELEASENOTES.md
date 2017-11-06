@@ -22,6 +22,12 @@
 # Release Notes
 
 
+### 2.0.2 (Nov 06, 2017)
+* [CB-13472](https://issues.apache.org/jira/browse/CB-13472) (CI) Fixed Travis **Android** builds again
+* [CB-13028](https://issues.apache.org/jira/browse/CB-13028) (CI) **Browser** builds on Travis and AppVeyor
+* [CB-12994](https://issues.apache.org/jira/browse/CB-12994) (android, **BlackBerry**) add `es6-promise-plugin` from `npm`
+* [CB-12847](https://issues.apache.org/jira/browse/CB-12847) added `bugs` entry to `package.json`.
+
 ### 2.0.1 (Apr 27, 2017)
 * [CB-12622](https://issues.apache.org/jira/browse/CB-12622) Added **Android 6.0** build badge to `README`
 * [CB-12543](https://issues.apache.org/jira/browse/CB-12543) (iOS) Rotate to specified orientation when locked
