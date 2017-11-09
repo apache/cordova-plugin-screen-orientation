@@ -53,13 +53,18 @@
     if([vc respondsToSelector:selector]) {
         ((void (*)(CDVViewController*, SEL, NSMutableArray*))objc_msgSend)(vc,selector,result);
         
+        UIInterfaceOrientation deviceOrientation = [UIApplication sharedApplication].statusBarOrientation;
+        
+        // Update orientation only if needed.
+        // Prevent switch from UIInterfaceOrientationLandscapeLeft to UIInterfaceOrientationLandscapeRight and
+        // from UIInterfaceOrientationPortraitUpsideDown to UIInterfaceOrientationPortrait
         if ([UIDevice currentDevice] != nil){
             NSNumber *value = nil;
-            if(orientationMask == 8 || orientationMask == 12) {
+            if(orientationMask == 8 || (orientationMask == 12 && !UIInterfaceOrientationIsLandscape(deviceOrientation))) {
                 value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight];
             } else if (orientationMask == 4){
                 value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
-            } else if (orientationMask == 1 || orientationMask == 3) {
+            } else if (orientationMask == 1 || (orientationMask == 3 && !UIInterfaceOrientationIsPortrait(deviceOrientation))) {
                 value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
             } else if (orientationMask == 2) {
                 value = [NSNumber numberWithInt:UIInterfaceOrientationPortraitUpsideDown];
