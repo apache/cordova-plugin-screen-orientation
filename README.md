@@ -23,7 +23,7 @@
 
 # Cordova Screen Orientation Plugin
 
-Cordova plugin to set/lock the screen orientation in a common way for iOS, Android, WP8 and Blackberry 10.  This plugin is based on [Screen Orientation API](http://www.w3.org/TR/screen-orientation/) so the api matches the current spec.
+Cordova plugin to set/lock the screen orientation in a common way for iOS and Android. This plugin is based on [Screen Orientation API](http://www.w3.org/TR/screen-orientation/) so the api matches the current spec.
 
 The plugin adds the following to the screen object (`window.screen`):
 
@@ -113,17 +113,6 @@ screen.orientation.onchange = function(){console.log(screen.orientation.type);
 
 The __screen.orientation__ property will not update when the phone is [rotated 180 degrees](http://www.quirksmode.org/dom/events/orientationchange.html).
 
-## BB10 Notes
-
-Wraps the com.blackberry.app plugin functions, auto installed as a dependancy.
-
-## WP8 Notes
-
-Windows phone does not support specification or primary and secondary orientations.  If called with a specific orientation the plugin will just apply the landscape or portait orientation.
-
-## W8.1 Notes
-
-Windows 8.1 Applicaitons (runtime/metro applications) will only display orientation changes if the device has some sort of accelerometer.  The internal state of the "orientation" will still be kept, but the actual screen won't rotate unless the device supports it.
 
 # Legacy Changelog
 
