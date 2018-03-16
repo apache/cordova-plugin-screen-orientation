@@ -48,13 +48,20 @@ public class CDVOrientation extends CordovaPlugin {
     private static final String LANDSCAPE = "landscape";
     
     @Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
+    public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) {
         
         Log.d(TAG, "execute action: " + action);
-        
+
         // Route the Action
         if (action.equals("screenOrientation")) {
-            return routeScreenOrientation(args, callbackContext);
+            final String orientation = args.optString(1);
+            cordova.getThreadPool().execute(new Runnable() {
+                @Override
+                public void run() {
+                    routeScreenOrientation(orientation, callbackContext);
+                }
+            });
+            return true;
         }
         
         // Action not found
@@ -62,13 +69,7 @@ public class CDVOrientation extends CordovaPlugin {
         return false;
     }
     
-    private boolean routeScreenOrientation(JSONArray args, CallbackContext callbackContext) {
-        
-        String action = args.optString(0);
-        
-        
-        
-        String orientation = args.optString(1);
+    private void routeScreenOrientation(String orientation, CallbackContext callbackContext) {
         
         Log.d(TAG, "Requested ScreenOrientation: " + orientation);
         
@@ -91,8 +92,6 @@ public class CDVOrientation extends CordovaPlugin {
         }
         
         callbackContext.success();
-        return true;
-        
-        
+
     }
 }
