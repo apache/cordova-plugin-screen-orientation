@@ -47,7 +47,7 @@
     if(orientationMask & 8) {
         [result addObject:[NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft]];
     }
-    
+
     SEL selector = NSSelectorFromString(@"setSupportedOrientations:");
     
     if([vc respondsToSelector:selector]) {
@@ -56,11 +56,8 @@
         }
         
         if ([UIDevice currentDevice] != nil){
-            NSNumber *value = nil;
             if (orientationMask != 15) {
-                if (!_isLocked) {
-                    _lastOrientation = [UIApplication sharedApplication].statusBarOrientation;
-                }
+                NSNumber *value = nil;
                 UIInterfaceOrientation deviceOrientation = [UIApplication sharedApplication].statusBarOrientation;
                 if(orientationMask == 8  || (orientationMask == 12  && !UIInterfaceOrientationIsLandscape(deviceOrientation))) {
                     value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
@@ -71,12 +68,11 @@
                 } else if (orientationMask == 2) {
                     value = [NSNumber numberWithInt:UIInterfaceOrientationPortraitUpsideDown];
                 }
+                [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
             } else {
-                if (_lastOrientation != UIInterfaceOrientationUnknown) {
-                    [[UIDevice currentDevice] setValue:[NSNumber numberWithInt:_lastOrientation] forKey:@"orientation"];
-                    ((void (*)(CDVViewController*, SEL, NSMutableArray*))objc_msgSend)(vc,selector,result);
-                    [UINavigationController attemptRotationToDeviceOrientation];
-                }
+                [[UIDevice currentDevice] setValue:[NSNumber numberWithInt:UIInterfaceOrientationUnknown] forKey:@"orientation"];
+                ((void (*)(CDVViewController*, SEL, NSMutableArray*))objc_msgSend)(vc,selector,result);
+                [UINavigationController attemptRotationToDeviceOrientation];
             }
             if (value != nil) {
                 _isLocked = true;
