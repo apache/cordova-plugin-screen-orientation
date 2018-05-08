@@ -51,41 +51,27 @@
     SEL selector = NSSelectorFromString(@"setSupportedOrientations:");
     
     if([vc respondsToSelector:selector]) {
-        if (orientationMask != 15 || [UIDevice currentDevice] == nil) {
-            ((void (*)(CDVViewController*, SEL, NSMutableArray*))objc_msgSend)(vc,selector,result);
-        }
-        
+        // Set valid orientations
+        ((void (*)(CDVViewController*, SEL, NSMutableArray*))objc_msgSend)(vc,selector,result);
+
         if ([UIDevice currentDevice] != nil){
-            NSNumber *value = nil;
             if (orientationMask != 15) {
                 if (!_isLocked) {
                     _lastOrientation = [UIApplication sharedApplication].statusBarOrientation;
                 }
-                UIInterfaceOrientation deviceOrientation = [UIApplication sharedApplication].statusBarOrientation;
-                if(orientationMask == 8  || (orientationMask == 12  && !UIInterfaceOrientationIsLandscape(deviceOrientation))) {
-                    value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
-                } else if (orientationMask == 4){
+                if(orientationMask == 8 || orientationMask == 12) {
                     value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight];
                 } else if (orientationMask == 1 || (orientationMask == 3 && !UIInterfaceOrientationIsPortrait(deviceOrientation))) {
                     value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
                 } else if (orientationMask == 2) {
                     value = [NSNumber numberWithInt:UIInterfaceOrientationPortraitUpsideDown];
                 }
-            } else {
-                if (_lastOrientation != UIInterfaceOrientationUnknown) {
-                    [[UIDevice currentDevice] setValue:[NSNumber numberWithInt:_lastOrientation] forKey:@"orientation"];
-                    ((void (*)(CDVViewController*, SEL, NSMutableArray*))objc_msgSend)(vc,selector,result);
-                    [UINavigationController attemptRotationToDeviceOrientation];
-                }
-            }
-            if (value != nil) {
-                _isLocked = true;
                 [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
             } else {
-                _isLocked = false;
+                // Unlock orientation
+                [UINavigationController attemptRotationToDeviceOrientation];
             }
         }
-        
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     }
     else {

@@ -24,11 +24,7 @@
 #import <Cordova/CDVViewController.h>
 
 @interface CDVOrientation : CDVPlugin
-{
-@protected
-    BOOL _isLocked;
-    UIInterfaceOrientation _lastOrientation;
-}
+{}
 
 - (void)screenOrientation:(CDVInvokedUrlCommand *)command;
 
