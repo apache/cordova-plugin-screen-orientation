@@ -42,10 +42,10 @@
         [result addObject:[NSNumber numberWithInt:UIInterfaceOrientationPortraitUpsideDown]];
     }
     if(orientationMask & 4) {
-        [result addObject:[NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft]];
+        [result addObject:[NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight]];
     }
     if(orientationMask & 8) {
-        [result addObject:[NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight]];
+        [result addObject:[NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft]];
     }
     
     SEL selector = NSSelectorFromString(@"setSupportedOrientations:");
@@ -61,11 +61,12 @@
                 if (!_isLocked) {
                     _lastOrientation = [UIApplication sharedApplication].statusBarOrientation;
                 }
-                if(orientationMask == 8 || orientationMask == 12) {
-                    value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight];
-                } else if (orientationMask == 4){
+                UIInterfaceOrientation deviceOrientation = [UIApplication sharedApplication].statusBarOrientation;
+                if(orientationMask == 8  || (orientationMask == 12  && !UIInterfaceOrientationIsLandscape(deviceOrientation))) {
                     value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
-                } else if (orientationMask == 1 || orientationMask == 3) {
+                } else if (orientationMask == 4){
+                    value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight];
+                } else if (orientationMask == 1 || (orientationMask == 3 && !UIInterfaceOrientationIsPortrait(deviceOrientation))) {
                     value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
                 } else if (orientationMask == 2) {
                     value = [NSNumber numberWithInt:UIInterfaceOrientationPortraitUpsideDown];
