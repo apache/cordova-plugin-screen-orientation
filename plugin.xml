@@ -20,7 +20,7 @@
     id="cordova-plugin-screen-orientation"
     version="3.0.2-dev">
     <name>Screen Orientation</name>
-    <description>Adds Screen Orientation API lock and unlock functions to the global screen object in android, iOS and windows-uwp.</description>
+    <description>Cordova Screen Orientation plugin</description>
     <license>Apache 2.0</license>
 
     <engines>
