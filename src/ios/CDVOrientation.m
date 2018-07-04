@@ -56,8 +56,8 @@
         }
         
         if ([UIDevice currentDevice] != nil){
+            NSNumber *value = nil;
             if (orientationMask != 15) {
-                NSNumber *value = nil;
                 UIInterfaceOrientation deviceOrientation = [UIApplication sharedApplication].statusBarOrientation;
                 if(orientationMask == 8  || (orientationMask == 12  && !UIInterfaceOrientationIsLandscape(deviceOrientation))) {
                     value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
