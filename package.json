@@ -23,6 +23,9 @@
   },
   "keywords": [
     "cordova",
+    "cordova-android",
+    "cordova-ios",
+    "cordova-windows",
     "device",
     "ecosystem:cordova",
     "screen",
