@@ -18,47 +18,47 @@
  * under the License.
  *
  */
-/* jshint jasmine: true */
-exports.defineAutoTests = function() {
 
-    describe('window.screen', function() {
+exports.defineAutoTests = function () {
 
-        it('should be defined', function() {
+    describe('window.screen', function () {
+
+        it('should be defined', function () {
             expect(window.screen).toBeDefined();
         });
     });
 
-    describe('window.screen.orientation', function() {
+    describe('window.screen.orientation', function () {
 
-        it('should be defined', function() {
+        it('should be defined', function () {
             expect(window.screen.orientation).toBeDefined();
         });
 
-        it('should have a `lock` function', function() {
+        it('should have a `lock` function', function () {
             expect(window.screen.orientation.lock).toBeDefined();
             expect(typeof window.screen.orientation.lock).toBe('function');
         });
 
-        it('should have an `unlock` function', function() {
+        it('should have an `unlock` function', function () {
             expect(window.screen.orientation.unlock).toBeDefined();
             expect(typeof window.screen.orientation.unlock).toBe('function');
         });
 
-        it('should have a `type` property (string)', function() {
+        it('should have a `type` property (string)', function () {
             expect(window.screen.orientation.type).toBeDefined();
             expect(typeof window.screen.orientation.type).toBe('string');
         });
 
-        it('should have an `angle` property (number)', function() {
+        it('should have an `angle` property (number)', function () {
             expect(window.screen.orientation.angle).toBeDefined();
             expect(typeof window.screen.orientation.angle).toBe('number');
         });
 
-        it('should have an `onchange` settable function', function() {
+        it('should have an `onchange` settable function', function () {
             // it should be null to start
             expect(window.screen.orientation.onchange).toBe(null);
             // then we set it
-            var funk = function(){};
+            var funk = function () {};
             window.screen.orientation.onchange = funk;
             // now it should exist
             expect(window.screen.orientation.onchange).toBeDefined();
@@ -69,24 +69,23 @@ exports.defineAutoTests = function() {
             expect(window.screen.orientation.onchange).toBe(null);
         });
 
-        it('should have an eventListener interface',function() {
+        it('should have an eventListener interface', function () {
             expect(window.screen.orientation.addEventListener).toBeDefined();
             expect(typeof window.screen.orientation.addEventListener).toBe('function');
 
             expect(window.screen.orientation.removeEventListener).toBeDefined();
             expect(typeof window.screen.orientation.removeEventListener).toBe('function');
 
-
         });
     });
 
-    describe('OrientationType', function() {
+    describe('OrientationType', function () {
 
-        it("should be defined", function() {
+        it('should be defined', function () {
             expect(window.OrientationType).toBeDefined();
         });
 
-        it("should have defined types", function() {
+        it('should have defined types', function () {
             expect(window.OrientationType['portrait-primary']).toBeDefined();
             expect(window.OrientationType['portrait-secondary']).toBeDefined();
             expect(window.OrientationType['landscape-primary']).toBeDefined();
@@ -94,13 +93,13 @@ exports.defineAutoTests = function() {
         });
     });
 
-    describe('OrientationLockType', function() {
+    describe('OrientationLockType', function () {
 
-        it("should be defined", function() {
+        it('should be defined', function () {
             expect(window.OrientationLockType).toBeDefined();
         });
 
-        it("should have defined types", function() {
+        it('should have defined types', function () {
             expect(window.OrientationLockType['portrait-primary']).toBeDefined();
             expect(window.OrientationLockType['portrait-secondary']).toBeDefined();
             expect(window.OrientationLockType['landscape-primary']).toBeDefined();
@@ -111,22 +110,21 @@ exports.defineAutoTests = function() {
         });
     });
 
-
     // TODO:
     // test addEventListener('change') works
     // test onchange works
-    describe('window.screen.orientation', function() {
+    describe('window.screen.orientation', function () {
 
-        it('should successfully lock and unlock screen orientation, lock should return a promise', function(done) {
+        it('should successfully lock and unlock screen orientation, lock should return a promise', function (done) {
 
             try {
                 var promise = window.screen.orientation.lock('landscape');
                 expect(promise).toBeDefined();
                 expect(typeof promise.then).toBe('function');
-                promise.then(function() {
+                promise.then(function () {
                     expect(window.screen.orientation.unlock).not.toThrow();
                     done();
-                }, function(err) {
+                }, function (err) {
                     expect(err).toBeDefined();
                     fail(err);
                     done();
@@ -139,23 +137,23 @@ exports.defineAutoTests = function() {
         });
     });
 };
-exports.defineManualTests = function(contentEl, createActionButton) {
+exports.defineManualTests = function (contentEl, createActionButton) {
 
-    createActionButton('Listen to orientationchange events', function() {
-        window.addEventListener("orientationchange", function(){
-            contentEl.innerHTML += '<p>Orientation changed! ' + screen.orientation.type + '</p>';
+    createActionButton('Listen to orientationchange events', function () {
+        window.addEventListener('orientationchange', function () {
+            contentEl.innerHTML += '<p>Orientation changed! ' + window.screen.orientation.type + '</p>';
         });
     });
-    createActionButton('Unlock orientation', function() {
-        screen.orientation.unlock();
+    createActionButton('Unlock orientation', function () {
+        window.screen.orientation.unlock();
         contentEl.innerHTML += '<p>Orientation unlocked.</p>';
     });
-    createActionButton('Lock to portrait', function() {
-        screen.orientation.lock('portrait');
+    createActionButton('Lock to portrait', function () {
+        window.screen.orientation.lock('portrait');
         contentEl.innerHTML += '<p>Orientation locked to portrait.</p>';
     });
-    createActionButton('Lock to landscape', function() {
-        screen.orientation.lock('landscape');
+    createActionButton('Lock to landscape', function () {
+        window.screen.orientation.lock('landscape');
         contentEl.innerHTML += '<p>Orientation locked to landscape.</p>';
     });
 };

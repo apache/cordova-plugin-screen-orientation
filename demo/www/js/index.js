@@ -18,14 +18,14 @@
  */
 var app = {
     // Application Constructor
-    initialize: function() {
+    initialize: function () {
         this.bindEvents();
     },
     // Bind Event Listeners
     //
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
+    bindEvents: function () {
         document.addEventListener('deviceready', this.onDeviceReady, false);
 
     },
@@ -33,71 +33,75 @@ var app = {
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
+    onDeviceReady: function () {
         app.receivedEvent('deviceready');
-        btnPortrait.addEventListener("click", function() {
-            screen.orientation.lock('portrait').then(function(obj) {
+        const btnPortrait = document.getElementById('btnPortrait');
+        const btnLandscape = document.getElementById('btnLandscape');
+        const btnPortPrimary = document.getElementById('btnPortPrimary');
+        const btnLandPrimary = document.getElementById('btnLandPrimary');
+        const btnAny = document.getElementById('btnAny');
+
+        btnPortrait.addEventListener('click', function () {
+            window.screen.orientation.lock('portrait').then(function (obj) {
                 console.log(obj);
-            }, function(obj) {
-                console.log(obj);
-            });
-        });
-        btnLandscape.addEventListener("click", function() {
-            screen.orientation.lock('landscape').then(function(obj) {
-                console.log(obj);
-            }, function(obj) {
-                console.log(obj);
-            });
-        });
-        btnPortPrimary.addEventListener("click", function() {
-            screen.orientation.lock('portrait-primary').then(function(obj) {
-                console.log(obj);
-            }, function(obj) {
+            }, function (obj) {
                 console.log(obj);
             });
         });
-        btnLandPrimary.addEventListener("click", function() {
-            screen.orientation.lock('landscape-primary').then(function(obj) {
+        btnLandscape.addEventListener('click', function () {
+            window.screen.orientation.lock('landscape').then(function (obj) {
                 console.log(obj);
-            }, function(obj) {
+            }, function (obj) {
                 console.log(obj);
             });
         });
-        btnAny.addEventListener("click", function() {
-            screen.orientation.unlock();
+        btnPortPrimary.addEventListener('click', function () {
+            window.screen.orientation.lock('portrait-primary').then(function (obj) {
+                console.log(obj);
+            }, function (obj) {
+                console.log(obj);
+            });
+        });
+        btnLandPrimary.addEventListener('click', function () {
+            window.screen.orientation.lock('landscape-primary').then(function (obj) {
+                console.log(obj);
+            }, function (obj) {
+                console.log(obj);
+            });
+        });
+        btnAny.addEventListener('click', function () {
+            window.screen.orientation.unlock();
         });
 
         var hasOnChange = false;
-        btnOnchange.addEventListener("click", function() {
-            if(hasOnChange) {
-                screen.orientation.onchange = undefined;
-                btnOnchange.innerText = "assign onchange";
-            }
-            else {
-                screen.orientation.onchange = myFunction1;
-                btnOnchange.innerText = "remove onchange";
+        const btnOnchange = document.getElementById('btnOnchange');
+        btnOnchange.addEventListener('click', function () {
+            if (hasOnChange) {
+                window.screen.orientation.onchange = undefined;
+                btnOnchange.innerText = 'assign onchange';
+            } else {
+                window.screen.orientation.onchange = myFunction1;
+                btnOnchange.innerText = 'remove onchange';
             }
             hasOnChange = !hasOnChange;
         });
 
         var hasListener = false;
-        btnAddEvtListener.addEventListener("click", function() {
-            if(hasListener) {
-                screen.orientation.removeEventListener('change', myFunction2);
-                btnAddEvtListener.innerText = "addEventListener";
-            }
-            else {
-                screen.orientation.addEventListener('change', myFunction2);
-                btnAddEvtListener.innerText = "remEventListener";
+        const btnAddEvtListener = document.getElementById('btnAddEvtListener');
+        btnAddEvtListener.addEventListener('click', function () {
+            if (hasListener) {
+                window.screen.orientation.removeEventListener('change', myFunction2);
+                btnAddEvtListener.innerText = 'addEventListener';
+            } else {
+                window.screen.orientation.addEventListener('change', myFunction2);
+                btnAddEvtListener.innerText = 'remEventListener';
             }
             hasListener = !hasListener;
-
         });
-
 
     },
     // Update DOM on a Received Event
-    receivedEvent: function(id) {
+    receivedEvent: function (id) {
         var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
@@ -109,12 +113,12 @@ var app = {
     }
 };
 
-function myFunction1() {
-    alert('This change listener uses screen.orientation.onchange');
+function myFunction1 () {
+    window.alert('This change listener uses window.screen.orientation.onchange');
 }
 
-function myFunction2() {
-    alert('This change listener uses screen.orientation.addEventListener');
+function myFunction2 () {
+    window.alert('This change listener uses window.screen.orientation.addEventListener');
 }
 
 app.initialize();
