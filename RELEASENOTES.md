@@ -42,6 +42,7 @@
 * [CB-12588](https://issues.apache.org/jira/browse/CB-12588) add manual tests in cordova-plugin-test-framework style
 
 ### 2.0.0 (Mar 14, 2017)
+* Common javascript for iOS, Android and Windows.
 * [CB-11628](https://issues.apache.org/jira/browse/CB-11628) - w3c spec compliance https://www.w3.org/TR/screen-orientation/
 
 ### 1.4.2 (Dec 07, 2016)
@@ -55,4 +56,29 @@
 * make iOS rotate as needed when lockOrientation is called
 * switch license from MIT to Apache 2.0
 
+## 1.4.1
+* Fix for cordova >= 3.6.3
 
+## 1.4.0
+* Added Windows 8.1 Support
+* Background thread for ios
+* Orientation naming bug fixed
+* Add portrait upside down to iOS default orientations
+
+## 1.3.5-6
+* Plugin added to npm
+
+## 1.3.4
+* Readme update
+
+## 1.3.3
+* WP8 Support
+
+## 1.3.2
+*  iOS8 Delay Block
+
+## 1.3.0
+* iOS8 flicker
+
+## 1.2.0-1.2.1
+* iOS8 Crash
