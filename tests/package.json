@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-screen-orientation-tests",
-  "version": "3.0.0-dev",
+  "version": "3.0.2",
   "description": "",
   "cordova": {
     "id": "cordova-plugin-screen-orientation-tests",
