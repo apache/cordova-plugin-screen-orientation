@@ -117,25 +117,11 @@ exports.defineAutoTests = function() {
     // test onchange works
     describe('window.screen.orientation', function() {
 
-        it('should successfully lock and unlock screen orientation, lock should return a promise', function(done) {
-
-            try {
-                var promise = window.screen.orientation.lock('landscape');
-                expect(promise).toBeDefined();
-                expect(typeof promise.then).toBe('function');
-                promise.then(function() {
-                    expect(window.screen.orientation.unlock).not.toThrow();
-                    done();
-                }, function(err) {
-                    expect(err).toBeDefined();
-                    fail(err);
-                    done();
-                });
-            } catch (err) {
-                fail(err);
-                done();
-            }
-
+        it('should successfully lock and unlock screen orientation', function() {
+            return window.screen.orientation.lock('portrait').then(function() {
+                expect(window.screen.orientation.type).toMatch(/^portrait-/);
+                expect(window.screen.orientation.unlock).not.toThrow();
+            });
         });
     });
 };
