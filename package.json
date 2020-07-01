@@ -11,7 +11,7 @@
   },
   "scripts": {
     "test": "npm run jshint",
-    "jshint": "node node_modules/jshint/bin/jshint www && node node_modules/jshint/bin/jshint src && node node_modules/jshint/bin/jshint demo/www"
+    "jshint": "node node_modules/jshint/bin/jshint www && node node_modules/jshint/bin/jshint src"
   },
   "cordova": {
     "id": "cordova-plugin-screen-orientation",
