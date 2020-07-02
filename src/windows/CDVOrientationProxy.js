@@ -17,7 +17,9 @@
  * specific language governing permissions and limitations
  * under the License.
  *
-*/
+ */
+
+/* global Windows, WinJS */
 
 var DisplayInfo = Windows.Graphics.Display.DisplayInformation;
 var Orientations = Windows.Graphics.Display.DisplayOrientations;
@@ -28,35 +30,37 @@ if (!window.Promise) {
 
 module.exports = {
     screenOrientation: function (win, fail, args) {
-        //console.log("screenOrientation proxy called with " + args);
+        // console.log("screenOrientation proxy called with " + args);
 
         try {
             var prefOrients = args[0];
             var winPrefs = 0;
 
-            if (prefOrients & 1) { // UIInterfaceOrientationPortrait
-                winPrefs = winPrefs |  Orientations.portrait;
+            if (prefOrients & 1) {
+                // UIInterfaceOrientationPortrait
+                winPrefs = winPrefs | Orientations.portrait;
             }
-            if (prefOrients & 2) { // UIInterfaceOrientationPortraitUpsideDown
+            if (prefOrients & 2) {
+                // UIInterfaceOrientationPortraitUpsideDown
                 winPrefs = winPrefs | Orientations.portraitFlipped;
             }
-            if(prefOrients & 4) { // UIInterfaceOrientationLandscapeLeft
+            if (prefOrients & 4) {
+                // UIInterfaceOrientationLandscapeLeft
                 winPrefs = winPrefs | Orientations.landscape;
             }
-            if (prefOrients & 8) { // UIInterfaceOrientationLandscapeRight
+            if (prefOrients & 8) {
+                // UIInterfaceOrientationLandscapeRight
                 winPrefs = winPrefs | Orientations.landscapeFlipped;
             }
             setTimeout(function () {
                 DisplayInfo.autoRotationPreferences = winPrefs;
                 win();
             }, 0);
-        }
-        catch (err) {
-            console.log("error :: " + err);
+        } catch (err) {
+            console.log('error :: ' + err);
             fail();
         }
-
     }
 };
 
-require("cordova/exec/proxy").add("CDVOrientation", module.exports);
+require('cordova/exec/proxy').add('CDVOrientation', module.exports);

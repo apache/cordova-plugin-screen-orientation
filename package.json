@@ -5,8 +5,8 @@
   "repository": "github:apache/cordova-plugin-screen-orientation",
   "bugs": "https://github.com/apache/cordova-plugin-screen-orientation/issues",
   "scripts": {
-    "test": "npm run jshint",
-    "jshint": "node node_modules/jshint/bin/jshint www && node node_modules/jshint/bin/jshint src"
+    "test": "npm run lint",
+    "lint": "eslint ."
   },
   "cordova": {
     "id": "cordova-plugin-screen-orientation",
@@ -31,7 +31,7 @@
   "author": "Apache Software Foundation",
   "license": "Apache-2.0",
   "devDependencies": {
-    "jshint": "^2.9.4"
+    "@cordova/eslint-config": "^3.0.0"
   },
   "engines": {
     "cordovaDependencies": {
