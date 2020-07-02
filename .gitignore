@@ -12,18 +12,5 @@ Thumbs.db
 *.swp
 *.user
 
-demo/hooks/
-demo/platforms/
-demo/plugins/
-/node_modules/
+node_modules
 .vscode/
-
-
-
-
-
-
-
-
-
-
