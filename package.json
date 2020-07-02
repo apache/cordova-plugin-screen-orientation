@@ -2,13 +2,8 @@
   "name": "cordova-plugin-screen-orientation",
   "version": "3.0.3-dev",
   "description": "Cordova Screen Orientation plugin",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/apache/cordova-plugin-screen-orientation"
-  },
-  "bugs": {
-    "url": "https://github.com/apache/cordova-plugin-screen-orientation/issues"
-  },
+  "repository": "github:apache/cordova-plugin-screen-orientation",
+  "bugs": "https://github.com/apache/cordova-plugin-screen-orientation/issues",
   "scripts": {
     "test": "npm run jshint",
     "jshint": "node node_modules/jshint/bin/jshint www && node node_modules/jshint/bin/jshint src"
