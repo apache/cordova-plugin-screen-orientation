@@ -47,8 +47,12 @@ screenOrientation.setOrientation = function (orientation) {
     cordova.exec(null, null, 'CDVOrientation', 'screenOrientation', [orientationMask, orientation]);
 };
 
-if (!screen.orientation) {
-    screen.orientation = {};
+if (!window.screen) {
+    window.screen = {};
+}
+
+if (!window.screen.orientation) {
+    window.screen.orientation = {};
 }
 
 setOrientationProperties();
@@ -84,7 +88,7 @@ function addScreenOrientationApi (screenObject) {
 }
 
 function resolveOrientation (orientation, resolve, reject) {
-    if (!Object.prototype.hasOwnProperty.call(OrientationLockType, 'orientation')) {
+    if (!Object.prototype.hasOwnProperty.call(OrientationLockType, orientation)) {
         var err = new Error();
         err.name = 'NotSupportedError';
         reject(err); // "cannot change orientation");
@@ -94,18 +98,18 @@ function resolveOrientation (orientation, resolve, reject) {
     }
 }
 
-addScreenOrientationApi(screen.orientation);
+addScreenOrientationApi(window.screen.orientation);
 
 var onChangeListener = null;
 
-Object.defineProperty(screen.orientation, 'onchange', {
+Object.defineProperty(window.screen.orientation, 'onchange', {
     set: function (listener) {
         if (onChangeListener) {
-            screen.orientation.removeEventListener('change', onChangeListener);
+            window.screen.orientation.removeEventListener('change', onChangeListener);
         }
         onChangeListener = listener;
         if (onChangeListener) {
-            screen.orientation.addEventListener('change', onChangeListener);
+            window.screen.orientation.addEventListener('change', onChangeListener);
         }
     },
     get: function () {
@@ -122,33 +126,33 @@ var orientationchange = function () {
     evtTarget.dispatchEvent(event);
 };
 
-screen.orientation.addEventListener = function (a, b, c) {
+window.screen.orientation.addEventListener = function (a, b, c) {
     return evtTarget.addEventListener(a, b, c);
 };
 
-screen.orientation.removeEventListener = function (a, b, c) {
+window.screen.orientation.removeEventListener = function (a, b, c) {
     return evtTarget.removeEventListener(a, b, c);
 };
 
 function setOrientationProperties () {
     switch (window.orientation) {
     case 0:
-        screen.orientation.type = 'portrait-primary';
+        window.screen.orientation.type = 'portrait-primary';
         break;
     case 90:
-        screen.orientation.type = 'landscape-primary';
+        window.screen.orientation.type = 'landscape-primary';
         break;
     case 180:
-        screen.orientation.type = 'portrait-secondary';
+        window.screen.orientation.type = 'portrait-secondary';
         break;
     case -90:
-        screen.orientation.type = 'landscape-secondary';
+        window.screen.orientation.type = 'landscape-secondary';
         break;
     default:
-        screen.orientation.type = 'portrait-primary';
+        window.screen.orientation.type = 'portrait-primary';
         break;
     }
-    screen.orientation.angle = window.orientation || 0;
+    window.screen.orientation.angle = window.orientation || 0;
 }
 window.addEventListener('orientationchange', orientationchange, true);
 
