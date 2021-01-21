@@ -84,7 +84,7 @@ function addScreenOrientationApi (screenObject) {
 }
 
 function resolveOrientation (orientation, resolve, reject) {
-    if (!Object.prototype.hasOwnProperty.call(OrientationLockType, 'orientation')) {
+    if (!Object.prototype.hasOwnProperty.call(OrientationLockType, orientation)) {
         var err = new Error();
         err.name = 'NotSupportedError';
         reject(err); // "cannot change orientation");
