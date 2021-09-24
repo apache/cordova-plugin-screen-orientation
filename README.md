@@ -23,6 +23,8 @@ description: Set the screen orientation
 
 # Cordova Screen Orientation Plugin
 
+[![Android Testsuite](https://github.com/apache/cordova-plugin-screen-orientation/actions/workflows/android.yml/badge.svg)](https://github.com/apache/cordova-plugin-screen-orientation/actions/workflows/android.yml) [![Chrome Testsuite](https://github.com/apache/cordova-plugin-screen-orientation/actions/workflows/chrome.yml/badge.svg)](https://github.com/apache/cordova-plugin-screen-orientation/actions/workflows/chrome.yml) [![iOS Testsuite](https://github.com/apache/cordova-plugin-screen-orientation/actions/workflows/ios.yml/badge.svg)](https://github.com/apache/cordova-plugin-screen-orientation/actions/workflows/ios.yml) [![Lint Test](https://github.com/apache/cordova-plugin-screen-orientation/actions/workflows/lint.yml/badge.svg)](https://github.com/apache/cordova-plugin-screen-orientation/actions/workflows/lint.yml)
+
 Cordova plugin to set/lock the screen orientation in a common way for iOS, Android, and windows-uwp.  This plugin is based on [Screen Orientation API](http://www.w3.org/TR/screen-orientation/) so the api matches the current spec.
 
 The plugin adds the following to the screen object (`window.screen`):
