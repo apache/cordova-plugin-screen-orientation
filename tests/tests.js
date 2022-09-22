@@ -20,6 +20,20 @@
  */
 
 exports.defineAutoTests = function () {
+    var isLockable = false;
+
+    beforeAll(function () {
+        // Mobile devices are expected to have a lockable orientation, while
+        // desktop devices does not
+        // (Chrome on desktop will return:
+        //  DOMException: screen.orientation.lock() is not available on this device)
+        // Using an user agent check sucks, but this is a unit test,
+        // - using browser window size is unreliable cause the browser can be resized.
+        // - Using max touch support is unreliable cause some laptops will have touch support
+        //   but still lack support for locking the orientation.
+        isLockable = /Android|iPhone|iPad|iPod/gi.test(window.navigator.userAgent);
+    });
+
     describe('window.screen', function () {
         it('should be defined', function () {
             expect(window.screen).toBeDefined();
@@ -108,12 +122,22 @@ exports.defineAutoTests = function () {
     // test addEventListener('change') works
     // test onchange works
     describe('window.screen.orientation', function () {
-        it('should successfully lock and unlock screen orientation', function () {
-            return window.screen.orientation.lock('portrait').then(function () {
-                expect(window.screen.orientation.type).toMatch(/^portrait-/);
-                expect(window.screen.orientation.unlock).not.toThrow();
+        if (isLockable) {
+            it('should successfully lock and unlock screen orientation', function () {
+                return window.screen.orientation.lock('portrait').then(function () {
+                    expect(window.screen.orientation.type).toMatch(/^portrait-/);
+                    expect(window.screen.orientation.unlock).not.toThrow();
+                });
             });
-        });
+        }
+        // We do not test "not isLockable" states because it isn't testable.
+        // The error stating it's not supported is not actually passed to the
+        // promise reject function, so the error is not catchable. The error
+        // is only ever printed to the JS console if nothing catches errors.
+        // The promise itself is fulfilled successfully, despite the action
+        // not doing what is expected.
+        // I believe this might be a privacy security mechanism to avoid device
+        // fingerprinting.
     });
 };
 exports.defineManualTests = function (contentEl, createActionButton) {
