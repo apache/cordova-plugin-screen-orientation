@@ -28,40 +28,6 @@
 
 @implementation CDVOrientation
 
--(void)handleAboveEqualIos16WithOrientationMask:(NSInteger) orientationMask viewController: (CDVViewController*) vc result:(NSMutableArray*) result selector:(SEL) selector
-{
-    if(@available(iOS 16.0, *)) {
-        NSObject *value16;
-        // oritentationMask 15 is "unlock" the orientation lock.
-        if (orientationMask != 15) {
-            if (!_isLocked) {
-                _lastOrientation = [UIApplication sharedApplication].statusBarOrientation;
-            }
-            UIInterfaceOrientation deviceOrientation = [UIApplication sharedApplication].statusBarOrientation;
-            if(orientationMask == 8  || (orientationMask == 12  && !UIInterfaceOrientationIsLandscape(deviceOrientation))) {
-                value16 = [[UIWindowSceneGeometryPreferencesIOS alloc] initWithInterfaceOrientations:UIInterfaceOrientationMaskLandscapeLeft];
-            } else if (orientationMask == 4){
-                value16 = [[UIWindowSceneGeometryPreferencesIOS alloc] initWithInterfaceOrientations:UIInterfaceOrientationMaskLandscapeRight];
-            } else if (orientationMask == 1 || (orientationMask == 3 && !UIInterfaceOrientationIsPortrait(deviceOrientation))) {
-                value16 = [[UIWindowSceneGeometryPreferencesIOS alloc] initWithInterfaceOrientations:UIInterfaceOrientationMaskPortrait];
-            } else if (orientationMask == 2) {
-                value16 = [[UIWindowSceneGeometryPreferencesIOS alloc] initWithInterfaceOrientations:UIInterfaceOrientationMaskPortraitUpsideDown];
-            }
-        } else {
-            ((void (*)(CDVViewController*, SEL, NSMutableArray*))objc_msgSend)(vc,selector,result);
-        }
-        if (value16 != nil) {
-            _isLocked = true;
-            UIWindowScene *scene = (UIWindowScene*)[[UIApplication.sharedApplication connectedScenes] anyObject];
-            [scene requestGeometryUpdateWithPreferences:(UIWindowSceneGeometryPreferencesIOS*)value16 errorHandler:^(NSError * _Nonnull error) {
-                NSLog(@"Failed to change orientation  %@ %@", error, [error userInfo]);
-            }];
-        } else {
-            _isLocked = false;
-        }
-    }
-}
-
 
 -(void)handleBelowEqualIos15WithOrientationMask:(NSInteger) orientationMask viewController: (CDVViewController*) vc result:(NSMutableArray*) result selector:(SEL) selector
 {
@@ -96,6 +62,64 @@
 }
 
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_15_5
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunguarded-availability-new"
+// this will stop it complaining about new iOS16 APIs being used.
+-(void)handleAboveEqualIos16WithOrientationMask:(NSInteger) orientationMask viewController: (CDVViewController*) vc result:(NSMutableArray*) result selector:(SEL) selector
+{
+    NSObject *value16;
+    // oritentationMask 15 is "unlock" the orientation lock.
+    if (orientationMask != 15) {
+        if (!_isLocked) {
+            _lastOrientation = [UIApplication sharedApplication].statusBarOrientation;
+        }
+        UIInterfaceOrientation deviceOrientation = [UIApplication sharedApplication].statusBarOrientation;
+        if(orientationMask == 8  || (orientationMask == 12  && !UIInterfaceOrientationIsLandscape(deviceOrientation))) {
+            value16 = [[UIWindowSceneGeometryPreferencesIOS alloc] initWithInterfaceOrientations:UIInterfaceOrientationMaskLandscapeLeft];
+        } else if (orientationMask == 4){
+            value16 = [[UIWindowSceneGeometryPreferencesIOS alloc] initWithInterfaceOrientations:UIInterfaceOrientationMaskLandscapeRight];
+        } else if (orientationMask == 1 || (orientationMask == 3 && !UIInterfaceOrientationIsPortrait(deviceOrientation))) {
+            value16 = [[UIWindowSceneGeometryPreferencesIOS alloc] initWithInterfaceOrientations:UIInterfaceOrientationMaskPortrait];
+        } else if (orientationMask == 2) {
+            value16 = [[UIWindowSceneGeometryPreferencesIOS alloc] initWithInterfaceOrientations:UIInterfaceOrientationMaskPortraitUpsideDown];
+        }
+    } else {
+        ((void (*)(CDVViewController*, SEL, NSMutableArray*))objc_msgSend)(vc,selector,result);
+    }
+    if (value16 != nil) {
+        _isLocked = true;
+        UIWindowScene *scene = (UIWindowScene*)[[UIApplication.sharedApplication connectedScenes] anyObject];
+        [scene requestGeometryUpdateWithPreferences:(UIWindowSceneGeometryPreferencesIOS*)value16 errorHandler:^(NSError * _Nonnull error) {
+            NSLog(@"Failed to change orientation  %@ %@", error, [error userInfo]);
+        }];
+    } else {
+        _isLocked = false;
+    }
+}
+#pragma clang diagnostic pop
+
+-(void)handleWithOrientationMask:(NSInteger) orientationMask viewController: (CDVViewController*) vc result:(NSMutableArray*) result selector:(SEL) selector
+{
+    if (@available(iOS 16.0, *)) {
+        [self handleAboveEqualIos16WithOrientationMask:orientationMask viewController:vc result:result selector:selector];
+        // always double check the supported interfaces, so we update if needed
+        // but do it right at the end here to avoid the "double" rotation issue reported in
+        // https://github.com/apache/cordova-plugin-screen-orientation/pull/107
+        [self.viewController setNeedsUpdateOfSupportedInterfaceOrientations];
+    } else {
+        [self handleBelowEqualIos15WithOrientationMask:orientationMask viewController:vc result:result selector:selector];
+    }
+
+}
+#else
+-(void)handleWithOrientationMask:(NSInteger) orientationMask viewController: (CDVViewController*) vc result:(NSMutableArray*) result selector:(SEL) selector
+{
+    [self handleBelowEqualIos15WithOrientationMask:orientationMask viewController:vc result:result selector:selector];
+}
+#endif
+
+
 -(void)screenOrientation:(CDVInvokedUrlCommand *)command
 {
     CDVPluginResult* pluginResult;
@@ -123,15 +147,7 @@
         }
 
         if ([UIDevice currentDevice] != nil){
-            if (@available(iOS 16.0, *)) {
-                [self handleAboveEqualIos16WithOrientationMask:orientationMask viewController:vc result:result selector:selector];
-                // always double check the supported interfaces, so we update if needed
-                // but do it right at the end here to avoid the "double" rotation issue reported in
-                // https://github.com/apache/cordova-plugin-screen-orientation/pull/107
-                [self.viewController setNeedsUpdateOfSupportedInterfaceOrientations];
-            } else {
-                [self handleBelowEqualIos15WithOrientationMask:orientationMask viewController:vc result:result selector:selector];
-            }
+            [self handleWithOrientationMask:orientationMask viewController:vc result:result selector:selector];
         }
         
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
