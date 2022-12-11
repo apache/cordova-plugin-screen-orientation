@@ -61,8 +61,7 @@
     }
 }
 
-
-#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_15_5
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 160000
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability-new"
 // this will stop it complaining about new iOS16 APIs being used.
