@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-screen-orientation",
-  "version": "3.0.3-dev",
+  "version": "3.0.3",
   "description": "Cordova Screen Orientation plugin",
   "repository": "github:apache/cordova-plugin-screen-orientation",
   "bugs": "https://github.com/apache/cordova-plugin-screen-orientation/issues",

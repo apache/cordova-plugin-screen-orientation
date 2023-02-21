@@ -18,7 +18,7 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     id="cordova-plugin-screen-orientation"
-    version="3.0.3-dev">
+    version="3.0.3">
     <name>Screen Orientation</name>
     <description>Cordova Screen Orientation plugin</description>
     <license>Apache 2.0</license>

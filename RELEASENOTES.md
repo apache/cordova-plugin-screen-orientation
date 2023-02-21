@@ -21,6 +21,36 @@
 
 # Release Notes
 
+### 3.0.3 (Feb 21, 2023)
+* build(deps): bump json5 from 1.0.1 to 1.0.2 ([#110](https://github.com/apache/cordova-plugin-screen-orientation/issues/110))
+* feat(ios): add support for **iOS** 16 ([#107](https://github.com/apache/cordova-plugin-screen-orientation/issues/107))
+* fix(chrome): lock test ([#105](https://github.com/apache/cordova-plugin-screen-orientation/issues/105))
+* chore: add .npmrc file to ensure the official NPM registry is used for package installations. ([#103](https://github.com/apache/cordova-plugin-screen-orientation/issues/103))
+* chore: package-lock update (#104)
+* ci: sync workflow with paramedic (#101)
+* chore(npm): bump package-lock v2 w/ rebuild (#99)
+* ci(android): update java requirement for `cordova-android`@11 ([#92](https://github.com/apache/cordova-plugin-screen-orientation/issues/92))
+* ci(ios): update workflow w/ **iOS** 15 ([#88](https://github.com/apache/cordova-plugin-screen-orientation/issues/88))
+* ci: add action-badge (#87)
+* ci: remove travis & appveyor (#86)
+* ci: add gh-actions workflows ([#84](https://github.com/apache/cordova-plugin-screen-orientation/issues/84))
+* ci: add node-14.x to workflow ([#76](https://github.com/apache/cordova-plugin-screen-orientation/issues/76))
+* fix: resolveOrientation function not working correctly ([#77](https://github.com/apache/cordova-plugin-screen-orientation/issues/77))
+* ci(travis): update osx xcode image (#72)
+* ci(travis): updates **Android** API level (#71)
+* chore: adds package-lock file ([#67](https://github.com/apache/cordova-plugin-screen-orientation/issues/67))
+* refactor(eslint): use cordova-eslint /w fix ([#66](https://github.com/apache/cordova-plugin-screen-orientation/issues/66))
+* chore(npm): use short notation in `package.json` ([#64](https://github.com/apache/cordova-plugin-screen-orientation/issues/64))
+* chore: removes old demo project. closes #52 (#65)
+* chore(asf): update git notification settings
+* Update CONTRIBUTING.md
+* chore(npm): improve ignore list ([#60](https://github.com/apache/cordova-plugin-screen-orientation/issues/60))
+* ci: updates Node.js versions ([#61](https://github.com/apache/cordova-plugin-screen-orientation/issues/61))
+* test: let Jasmine handle promises ([#57](https://github.com/apache/cordova-plugin-screen-orientation/issues/57))
+* ci(appveyor): replace node 6 with node 12
+* ci(travis): upgrade to node 8
+* chore(release): 3.0.3-dev
+
 ### 3.0.2 (Jun 19, 2019)
 
 -   fix(ios): Landscape Issue Fix and prevent orientation change when already in orientation ([#25](https://github.com/apache/cordova-plugin-screen-orientation/issues/25)) ([`a89e94c`](https://github.com/apache/cordova-plugin-screen-orientation/commit/a89e94c), [`13b34f0`](https://github.com/apache/cordova-plugin-screen-orientation/commit/13b34f0))
@@ -32,8 +62,8 @@
 -   ci: drop Node.js v4 support ([#45](https://github.com/apache/cordova-plugin-screen-orientation/issues/45)) ([`de7f6fe`](https://github.com/apache/cordova-plugin-screen-orientation/commit/de7f6fe))
 -   chore(github): Add or update GitHub pull request and issue template ([`ccc17fb`](https://github.com/apache/cordova-plugin-screen-orientation/commit/ccc17fb))
 -   ci(travis): also accept terms for android sdk `android-27` ([`9d2a422`](https://github.com/apache/cordova-plugin-screen-orientation/commit/9d2a422))
--   chore: CB-11843: fix package information ([#33](https://github.com/apache/cordova-plugin-screen-orientation/issues/33)) ([`950d339`](https://github.com/apache/cordova-plugin-screen-orientation/commit/950d339))
--   ci(travis): CB-13765: Add build-tools-26.0.2 to travis ([#30](https://github.com/apache/cordova-plugin-screen-orientation/issues/30)) ([`6fd974d`](https://github.com/apache/cordova-plugin-screen-orientation/commit/6fd974d), [`c5802c5`](https://github.com/apache/cordova-plugin-screen-orientation/commit/c5802c5))
+-   chore: [CB-11843](https://issues.apache.org/jira/browse/CB-11843) fix package information ([#33](https://github.com/apache/cordova-plugin-screen-orientation/issues/33)) ([`950d339`](https://github.com/apache/cordova-plugin-screen-orientation/commit/950d339))
+-   ci(travis): [CB-13765](https://issues.apache.org/jira/browse/CB-13765) Add build-tools-26.0.2 to travis ([#30](https://github.com/apache/cordova-plugin-screen-orientation/issues/30)) ([`6fd974d`](https://github.com/apache/cordova-plugin-screen-orientation/commit/6fd974d), [`c5802c5`](https://github.com/apache/cordova-plugin-screen-orientation/commit/c5802c5))
 -   docs: Fix release notes ([#29](https://github.com/apache/cordova-plugin-screen-orientation/issues/29)) ([`76f290e`](https://github.com/apache/cordova-plugin-screen-orientation/commit/76f290e))
 
 
