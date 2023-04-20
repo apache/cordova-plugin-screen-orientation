@@ -52,11 +52,11 @@ screenOrientation.lock = function (orientation) {
         resolveOrientation(orientation, resolve, reject);
     });
     return p;
-}
+};
 
-screenOrientation.unlock = function() {
+screenOrientation.unlock = function () {
     screenOrientation.setOrientation('any');
-}
+};
 
 setOrientationProperties();
 
