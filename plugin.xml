@@ -29,6 +29,7 @@
 
     <js-module src="www/screenorientation.js" name="screenorientation">
         <clobbers target="cordova.plugins.screenorientation" />
+        <clobbers target="screen.orientation" />
     </js-module>
 
     <platform name="ios">
