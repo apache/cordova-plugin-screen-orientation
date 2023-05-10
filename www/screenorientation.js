@@ -47,10 +47,6 @@ screenOrientation.setOrientation = function (orientation) {
     cordova.exec(null, null, 'CDVOrientation', 'screenOrientation', [orientationMask, orientation]);
 };
 
-if (!screen.orientation) {
-    screen.orientation = {};
-}
-
 setOrientationProperties();
 
 function addScreenOrientationApi (screenObject) {
@@ -94,18 +90,18 @@ function resolveOrientation (orientation, resolve, reject) {
     }
 }
 
-addScreenOrientationApi(screen.orientation);
+addScreenOrientationApi(screenOrientation);
 
 var onChangeListener = null;
 
-Object.defineProperty(screen.orientation, 'onchange', {
+Object.defineProperty(screenOrientation, 'onchange', {
     set: function (listener) {
         if (onChangeListener) {
-            screen.orientation.removeEventListener('change', onChangeListener);
+            screenOrientation.removeEventListener('change', onChangeListener);
         }
         onChangeListener = listener;
         if (onChangeListener) {
-            screen.orientation.addEventListener('change', onChangeListener);
+            screenOrientation.addEventListener('change', onChangeListener);
         }
     },
     get: function () {
@@ -122,33 +118,33 @@ var orientationchange = function () {
     evtTarget.dispatchEvent(event);
 };
 
-screen.orientation.addEventListener = function (a, b, c) {
+screenOrientation.addEventListener = function (a, b, c) {
     return evtTarget.addEventListener(a, b, c);
 };
 
-screen.orientation.removeEventListener = function (a, b, c) {
+screenOrientation.removeEventListener = function (a, b, c) {
     return evtTarget.removeEventListener(a, b, c);
 };
 
 function setOrientationProperties () {
     switch (window.orientation) {
     case 0:
-        screen.orientation.type = 'portrait-primary';
+        screenOrientation.type = 'portrait-primary';
         break;
     case 90:
-        screen.orientation.type = 'landscape-primary';
+        screenOrientation.type = 'landscape-primary';
         break;
     case 180:
-        screen.orientation.type = 'portrait-secondary';
+        screenOrientation.type = 'portrait-secondary';
         break;
     case -90:
-        screen.orientation.type = 'landscape-secondary';
+        screenOrientation.type = 'landscape-secondary';
         break;
     default:
-        screen.orientation.type = 'portrait-primary';
+        screenOrientation.type = 'portrait-primary';
         break;
     }
-    screen.orientation.angle = window.orientation || 0;
+    screenOrientation.angle = window.orientation || 0;
 }
 window.addEventListener('orientationchange', orientationchange, true);
 
