@@ -21,7 +21,7 @@
 
 /* global cordova, OrientationLockType */
 
-var screenOrientation = {};
+const screenOrientation = {};
 if (!window.OrientationType) {
     window.OrientationType = {
         'portrait-primary': 0,
@@ -41,14 +41,14 @@ if (!window.OrientationLockType) {
         any: 15 // All orientations are supported (unlocked orientation)
     };
 }
-var orientationMask = 1;
+let orientationMask = 1;
 screenOrientation.setOrientation = function (orientation) {
     orientationMask = window.OrientationLockType[orientation];
     cordova.exec(null, null, 'CDVOrientation', 'screenOrientation', [orientationMask, orientation]);
 };
 
 screenOrientation.lock = function (orientation) {
-    var p = new Promise(function (resolve, reject) {
+    const p = new Promise(function (resolve, reject) {
         resolveOrientation(orientation, resolve, reject);
     });
     return p;
@@ -62,7 +62,7 @@ setOrientationProperties();
 
 function resolveOrientation (orientation, resolve, reject) {
     if (!Object.prototype.hasOwnProperty.call(OrientationLockType, orientation)) {
-        var err = new Error();
+        const err = new Error();
         err.name = 'NotSupportedError';
         reject(err); // "cannot change orientation");
     } else {
@@ -71,7 +71,7 @@ function resolveOrientation (orientation, resolve, reject) {
     }
 }
 
-var onChangeListener = null;
+let onChangeListener = null;
 
 Object.defineProperty(screenOrientation, 'onchange', {
     set: function (listener) {
@@ -89,10 +89,10 @@ Object.defineProperty(screenOrientation, 'onchange', {
     enumerable: true
 });
 
-var evtTarget = new XMLHttpRequest(); // document.createElement('div');
-var orientationchange = function () {
+const evtTarget = new XMLHttpRequest(); // document.createElement('div');
+const orientationchange = function () {
     setOrientationProperties();
-    var event = document.createEvent('Events');
+    const event = document.createEvent('Events');
     event.initEvent('change', false, false);
     evtTarget.dispatchEvent(event);
 };
