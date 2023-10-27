@@ -22,7 +22,7 @@
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="cordova-plugin-screen-orientation-tests"
-    version="3.0.4">
+    version="3.0.5-dev">
     <name>Cordova Screen Orientation Plugin Tests</name>
     <license>Apache 2.0</license>
 
