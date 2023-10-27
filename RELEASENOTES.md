@@ -21,6 +21,18 @@
 
 # Release Notes
 
+### 3.0.4 (Oct 27, 2023)
+
+**Fixes:**
+
+* [GH-116](https://github.com/apache/cordova-plugin-screen-orientation/pull/116) fix(android, ios): use clobbers to overwrite `screen.orientation`
+
+**Others:**
+
+* [GH-125](https://github.com/apache/cordova-plugin-screen-orientation/pull/125) dep: bump `word-wrap` from `1.2.3` to `1.2.5`
+* [GH-124](https://github.com/apache/cordova-plugin-screen-orientation/pull/124) chore: update asf config
+* [GH-123](https://github.com/apache/cordova-plugin-screen-orientation/pull/123) ci(gh-action): sync with paramedic configs
+
 ### 3.0.3 (Feb 21, 2023)
 * build(deps): bump json5 from 1.0.1 to 1.0.2 ([#110](https://github.com/apache/cordova-plugin-screen-orientation/issues/110))
 * feat(ios): add support for **iOS** 16 ([#107](https://github.com/apache/cordova-plugin-screen-orientation/issues/107))
