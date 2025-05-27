@@ -12,15 +12,13 @@
     "id": "cordova-plugin-screen-orientation",
     "platforms": [
       "android",
-      "ios",
-      "windows"
+      "ios"
     ]
   },
   "keywords": [
     "cordova",
     "cordova-android",
     "cordova-ios",
-    "cordova-windows",
     "device",
     "ecosystem:cordova",
     "screen",
