@@ -57,10 +57,4 @@
 
     </platform>
 
-    <platform name="windows">
-        <js-module src="src/windows/CDVOrientationProxy.js" name="CDVOrientationProxy">
-            <merges target="" />
-        </js-module>
-    </platform>
-
 </plugin>
