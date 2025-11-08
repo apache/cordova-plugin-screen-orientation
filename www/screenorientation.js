@@ -62,7 +62,7 @@ function resolveOrientation (orientation, resolve, reject) {
     if (!Object.prototype.hasOwnProperty.call(OrientationLockType, orientation)) {
         const err = new Error();
         err.name = 'NotSupportedError';
-        reject(err); // "cannot change orientation");
+        reject(err); // "cannot change orientation
     } else {
         screenOrientation.setOrientation(orientation);
         resolve('Orientation set'); // orientation change successful
@@ -87,7 +87,7 @@ Object.defineProperty(screenOrientation, 'onchange', {
     enumerable: true
 });
 
-const evtTarget = new XMLHttpRequest(); // document.createElement('div');
+const evtTarget = new XMLHttpRequest();
 const orientationchange = function () {
     setOrientationProperties();
     const event = document.createEvent('Events');
