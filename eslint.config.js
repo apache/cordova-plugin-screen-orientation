@@ -19,11 +19,16 @@
 
 const { defineConfig } = require('eslint/config');
 const nodeConfig = require('@cordova/eslint-config/node');
-const nodeTestConfig = require('@cordova/eslint-config/node-tests');
 const browserConfig = require('@cordova/eslint-config/browser-tests');
 
 module.exports = defineConfig([
     ...nodeConfig,
-    ...nodeTestConfig,
-    ...browserConfig
+    ...browserConfig.map(config => ({
+        files: [
+            'src/**/*.js',
+            'www/**/*.js',
+            'tests/**/*.js'
+        ],
+        ...config
+    }))
 ]);
