@@ -40,6 +40,7 @@
         </config-file>
 
         <header-file src="src/ios/CDVOrientation.h" />
+        <source-file src="src/ios/CDVViewController+CDVOrientation.m" />
         <source-file src="src/ios/CDVOrientation.m" />
 
     </platform>
