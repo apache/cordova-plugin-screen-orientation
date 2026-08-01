@@ -53,8 +53,6 @@
             </feature>
         </config-file>
 
-        <dependency id="es6-promise-plugin" version="^4.1.0" />
-
     </platform>
 
     <platform name="windows">
