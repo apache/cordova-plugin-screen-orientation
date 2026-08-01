@@ -21,8 +21,8 @@
 
 /* global Windows, WinJS */
 
-var DisplayInfo = Windows.Graphics.Display.DisplayInformation;
-var Orientations = Windows.Graphics.Display.DisplayOrientations;
+const DisplayInfo = Windows.Graphics.Display.DisplayInformation;
+const Orientations = Windows.Graphics.Display.DisplayOrientations;
 
 if (!window.Promise) {
     window.Promise = WinJS.Promise;
@@ -33,8 +33,8 @@ module.exports = {
         // console.log("screenOrientation proxy called with " + args);
 
         try {
-            var prefOrients = args[0];
-            var winPrefs = 0;
+            const prefOrients = args[0];
+            let winPrefs = 0;
 
             if (prefOrients & 1) {
                 // UIInterfaceOrientationPortrait

@@ -20,7 +20,7 @@
  */
 
 exports.defineAutoTests = function () {
-    var isLockable = false;
+    let isLockable = false;
 
     beforeAll(function () {
         // Mobile devices are expected to have a lockable orientation, while
@@ -69,7 +69,7 @@ exports.defineAutoTests = function () {
             // it should be null to start
             expect(window.screen.orientation.onchange).toBe(null);
             // then we set it
-            var funk = function () {};
+            const funk = function () {};
             window.screen.orientation.onchange = funk;
             // now it should exist
             expect(window.screen.orientation.onchange).toBeDefined();
