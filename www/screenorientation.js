@@ -92,8 +92,11 @@ Object.defineProperty(screenOrientation, 'onchange', {
 var evtTarget = new XMLHttpRequest(); // document.createElement('div');
 var orientationchange = function () {
     setOrientationProperties();
-    var event = document.createEvent('Events');
-    event.initEvent('change', false, false);
+    const event = new Event('change', {
+        bubbles: false,
+        cancelable: false,
+        composed: false
+    });
     evtTarget.dispatchEvent(event);
 };
 
